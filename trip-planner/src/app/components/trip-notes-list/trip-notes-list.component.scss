@@ -31,10 +31,11 @@
 
     .button_container {
       display: flex;
-      width: 90%;
+      width: 80%;
       margin: 2% 2% 2% 0;
       gap: 10%;
-
+      justify-content: center;
+      align-self: center;
 
       mat-button-toggle-group {
         display: flex;

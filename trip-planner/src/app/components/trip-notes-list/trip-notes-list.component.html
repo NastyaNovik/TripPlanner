@@ -1,1 +1,22 @@
-<p>trip-notes-list works!</p>
+<div class="wrapper">
+<div class="trip_section upcoming">
+  <div class="section_header">
+    <span>Upcoming...</span>
+    <mat-icon style="color: orange;">whatshot</mat-icon>
+  </div>
+  <div class="trip_cards">
+    <app-trip-card *ngFor="let trip of upcomingTrips" [trip]="trip"></app-trip-card>
+  </div>
+</div>
+
+<div class="section_divider"></div>
+
+<div class="trip_section past">
+  <div class="section_header">
+    <span>Past...</span>
+  </div>
+  <div class="trip_cards">
+    <app-trip-card *ngFor="let trip of pastTrips" [trip]="trip"></app-trip-card>
+  </div>
+</div>
+</div>

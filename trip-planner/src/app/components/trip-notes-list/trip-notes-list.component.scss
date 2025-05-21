@@ -1,0 +1,45 @@
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.trip_section {
+  width: 90%;
+  margin: 1% auto;
+  padding: 0.8% 1.5% 3%;
+  border: 2px solid #e0e0e0;
+  border-radius: 16px;
+  background-color: #ffffff;
+
+  &.past {
+    background-color: #f9f9f9;
+  }
+  .section_header {
+    margin: 1% 1%;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #888888;
+    font-size: 18px;
+
+    mat-icon {
+      font-size: 1.7rem;
+    }
+  }
+}
+
+.section_divider {
+  height: 2px;
+  background: linear-gradient(to right, #cccccc 0%, #eeeeee 50%, #cccccc 100%);
+  margin: 2rem auto;
+  width: 60%;
+  border-radius: 1px;
+}
+
+.trip_cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+
+}

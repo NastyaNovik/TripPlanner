@@ -1,0 +1,74 @@
+{
+  "trips": [
+    {
+      "id": 1,
+      "title": "Austria Trip",
+      "dateFrom": "2025-04-12",
+      "dateTo": "2025-04-15",
+      "imageUrl": ""
+    },
+    {
+      "id": 2,
+      "title": "Italy Vacation",
+      "dateFrom": "2025-07-10",
+      "dateTo": "2025-07-20",
+      "imageUrl": ""
+    },
+    {
+      "id": 3,
+      "title": "France",
+      "dateFrom": "2024-08-05",
+      "dateTo": "2024-08-14",
+      "imageUrl": ""
+    },
+    {
+      "id": 4,
+      "title": "Spain Fiesta",
+      "dateFrom": "2025-09-22",
+      "dateTo": "2025-09-30",
+      "imageUrl": ""
+    },
+    {
+      "id": 5,
+      "title": "Germany Tour",
+      "dateFrom": "2025-10-11",
+      "dateTo": "2025-10-19",
+      "imageUrl": ""
+    },
+    {
+      "id": 6,
+      "title": "Switzerland Hike",
+      "dateFrom": "2025-11-01",
+      "dateTo": "2025-11-08",
+      "imageUrl": ""
+    },
+    {
+      "id": 7,
+      "title": "Portugal Escape",
+      "dateFrom": "2025-12-17",
+      "dateTo": "2025-12-26",
+      "imageUrl": ""
+    },
+    {
+      "id": 8,
+      "title": "Netherlands Visit",
+      "dateFrom": "2026-01-03",
+      "dateTo": "2026-01-10",
+      "imageUrl": ""
+    },
+    {
+      "id": 9,
+      "title": "Czech Republic Break",
+      "dateFrom": "2026-02-12",
+      "dateTo": "2026-02-20",
+      "imageUrl": ""
+    },
+    {
+      "id": 10,
+      "title": "Greece Adventure",
+      "dateFrom": "2026-03-06",
+      "dateTo": "2026-03-14",
+      "imageUrl": ""
+    }
+  ]
+}

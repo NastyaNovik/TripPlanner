@@ -10,6 +10,9 @@ import { MatCardModule } from '@angular/material/card';
 import { NgOptimizedImage } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { TripCardComponent } from './components/trip-card/trip-card.component';
+import { MatButton, MatFabButton } from '@angular/material/button';
+import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,12 @@ import { TripCardComponent } from './components/trip-card/trip-card.component';
     AppRoutingModule,
     MatCardModule,
     NgOptimizedImage,
-    MatIconModule
+    MatIconModule,
+    MatButton,
+    MatFabButton,
+    MatButtonToggleGroup,
+    MatButtonToggle,
+    FormsModule
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi())

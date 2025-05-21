@@ -1,22 +1,48 @@
 <div class="wrapper">
-<div class="trip_section upcoming">
-  <div class="section_header">
-    <span>Upcoming...</span>
-    <mat-icon style="color: orange;">whatshot</mat-icon>
+  <div class="trip_section upcoming">
+    <div class="section_header">
+      <div class="header">
+        <span>Upcoming...</span>
+        <mat-icon style="color: orange;">whatshot</mat-icon>
+      </div>
+      <div class="button_container">
+        <button mat-fab extended (click)="upcomingSorting()"> {{upcomingSort === 'asc'? 'Closest First' : 'Furthest First'}}
+          <mat-icon>{{upcomingSort === 'asc' ? 'arrow_downward' : 'arrow_upward'}}</mat-icon>
+        </button>
+        <mat-button-toggle-group [(ngModel)]="selectedUpcomingSeason" (change)="onSeasonChange()">
+          <mat-button-toggle class="season_toggle all" value="">All</mat-button-toggle>
+          <mat-button-toggle class="season_toggle winter" value="winter">Winter</mat-button-toggle>
+          <mat-button-toggle class="season_toggle spring" value="spring">Spring</mat-button-toggle>
+          <mat-button-toggle class="season_toggle summer" value="summer">Summer</mat-button-toggle>
+          <mat-button-toggle class="season_toggle autumn" value="autumn">Autumn</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+    <div class="trip_cards">
+      <app-trip-card *ngFor="let trip of filteredUpcomingTrips" [trip]="trip"></app-trip-card>
+    </div>
   </div>
-  <div class="trip_cards">
-    <app-trip-card *ngFor="let trip of upcomingTrips" [trip]="trip"></app-trip-card>
-  </div>
-</div>
 
-<div class="section_divider"></div>
+  <div class="section_divider"></div>
 
-<div class="trip_section past">
-  <div class="section_header">
-    <span>Past...</span>
+  <div class="trip_section past">
+    <div class="section_header">
+      <span>Past...</span>
+      <div class="button_container">
+        <button mat-fab extended (click)="pastSorting()"> {{pastSort === 'desc'? 'Most Recent First' : 'Oldest First'}}
+          <mat-icon>{{pastSort === 'asc' ? 'arrow_downward' : 'arrow_upward'}}</mat-icon>
+        </button>
+        <mat-button-toggle-group [(ngModel)]="selectedPastSeason" (change)="onSeasonChange()">
+          <mat-button-toggle class="season_toggle all" value="">All</mat-button-toggle>
+          <mat-button-toggle class="season_toggle winter" value="winter">Winter</mat-button-toggle>
+          <mat-button-toggle class="season_toggle spring" value="spring">Spring</mat-button-toggle>
+          <mat-button-toggle class="season_toggle summer" value="summer">Summer</mat-button-toggle>
+          <mat-button-toggle class="season_toggle autumn" value="autumn">Autumn</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+    <div class="trip_cards">
+      <app-trip-card *ngFor="let trip of filteredPastTrips" [trip]="trip"></app-trip-card>
+    </div>
   </div>
-  <div class="trip_cards">
-    <app-trip-card *ngFor="let trip of pastTrips" [trip]="trip"></app-trip-card>
-  </div>
-</div>
 </div>

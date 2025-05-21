@@ -12,6 +12,12 @@ import {Trip} from '../../models/trip';
 export class TripNotesListComponent implements OnInit {
   upcomingTrips: Trip[] = [];
   pastTrips: Trip[] = [];
+  upcomingSort ='asc';
+  pastSort ='desc';
+  selectedUpcomingSeason = '';
+  selectedPastSeason = '';
+  filteredUpcomingTrips: Trip[] = [];
+  filteredPastTrips: Trip[] = [];
 
   constructor(private tripService: TripService) {}
 
@@ -26,6 +32,12 @@ export class TripNotesListComponent implements OnInit {
         ...trip,
         season: this.getSeason(trip.dateFrom)
       }));
+
+      this.filteredUpcomingTrips = [...this.upcomingTrips];
+      this.filteredPastTrips = [...this.pastTrips];
+
+      this.applySort();
+      this.applyFilter();
     });
   }
 
@@ -51,5 +63,43 @@ export class TripNotesListComponent implements OnInit {
       default:
         return 'summer';
     }
+  }
+
+  applySort(){
+    this.upcomingTrips =this.sortTrips(this.upcomingTrips, this.upcomingSort);
+    this.pastTrips =this.sortTrips(this.pastTrips, this.pastSort);
+  }
+  sortTrips(trips: Trip[], orderBy: string): Trip[] {
+    return [...trips].sort((a, b) => {
+      const timeA = new Date(a.dateFrom).getTime();
+      const timeB = new Date(b.dateFrom).getTime();
+      return orderBy === 'asc'? timeA - timeB : timeB - timeA;
+      });
+  }
+
+  upcomingSorting(){
+    this.upcomingSort = this.upcomingSort === 'asc' ? 'desc' : 'asc';
+    this.upcomingTrips = this.sortTrips(this.upcomingTrips, this.upcomingSort);
+    this.applyFilter();
+  }
+
+  pastSorting(){
+    this.pastSort = this.pastSort === 'desc' ? 'asc' : 'desc';
+    this.pastTrips = this.sortTrips(this.pastTrips, this.pastSort);
+    this.applyFilter();
+  }
+
+  applyFilter(){
+    this.filteredUpcomingTrips = this.selectedUpcomingSeason
+      ? this.upcomingTrips.filter(trip => trip.season === this.selectedUpcomingSeason)
+      : this.upcomingTrips;
+
+    this.filteredPastTrips = this.selectedPastSeason
+      ? this.pastTrips.filter(trip => trip.season === this.selectedPastSeason)
+      : this.pastTrips;
+  }
+
+  onSeasonChange() {
+    this.applyFilter();
   }
 }

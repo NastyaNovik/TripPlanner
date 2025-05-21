@@ -15,31 +15,73 @@
   &.past {
     background-color: #f9f9f9;
   }
+
   .section_header {
     margin: 1% 1%;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: #888888;
     font-size: 18px;
+    display: flex;
+    flex-direction: column;
 
     mat-icon {
       font-size: 1.7rem;
     }
+
+    .button_container {
+      display: flex;
+      width: 90%;
+      margin: 2% 2% 2% 0;
+      gap: 10%;
+
+
+      mat-button-toggle-group {
+        display: flex;
+        flex-wrap: wrap;
+        box-shadow: 0 3px 4px 0 rgba(0,0,0,0.14)
+      }
+
+      mat-button-toggle {
+        min-width: 100px;
+        padding: 0 16px;
+        background-color: #d6efff;
+      }
+
+      .season_toggle.all {
+        background-color: white;
+      }
+
+      .season_toggle.winter {
+        background-color: #e0f7fa;
+      }
+
+      .season_toggle.spring {
+        background-color: #e4fbe1;
+      }
+
+      .season_toggle.summer {
+        background-color: #ffe4ec;
+      }
+
+      .season_toggle.autumn {
+        background-color: #d49672;
+      }
+    }
   }
-}
 
-.section_divider {
-  height: 2px;
-  background: linear-gradient(to right, #cccccc 0%, #eeeeee 50%, #cccccc 100%);
-  margin: 2rem auto;
-  width: 60%;
-  border-radius: 1px;
-}
+  .section_divider {
+    height: 2px;
+    background: linear-gradient(to right, #cccccc 0%, #eeeeee 50%, #cccccc 100%);
+    margin: 2rem auto;
+    width: 60%;
+    border-radius: 1px;
+  }
 
-.trip_cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: center;
-
+  .trip_cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+  }
 }

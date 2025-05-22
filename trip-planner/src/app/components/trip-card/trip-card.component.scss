@@ -21,19 +21,19 @@ mat-card {
   }
 
   &.spring {
-    background-color: #e4fbe1;
+    background: linear-gradient(135deg, #e8fbe5, #d6f3cd);
   }
 
   &.summer {
-    background-color: #ffe4ec;
+    background: linear-gradient(135deg, #fff3e0, #ffe3b3);
   }
 
   &.autumn {
-    background-color: #d49672;
+    background: linear-gradient(135deg, #ffe0cc, #ffccb3);
   }
 
   &.winter {
-    background-color: #e0f7fa;
+    background: linear-gradient(135deg, #e0f7ff, #d0ecf8);
   }
 
   .season_icon {

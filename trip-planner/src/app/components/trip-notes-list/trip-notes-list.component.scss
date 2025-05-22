@@ -37,10 +37,15 @@
       justify-content: center;
       align-self: center;
 
+      .sortButton {
+        background: linear-gradient(135deg, #edf2fb, #dbe7f3);
+      }
+
       mat-button-toggle-group {
         display: flex;
         flex-wrap: wrap;
-        box-shadow: 0 3px 4px 0 rgba(0,0,0,0.14)
+        box-shadow: 0 3px 4px 0 rgba(0,0,0,0.14);
+        border: 2px solid #e0e0e0;
       }
 
       mat-button-toggle {
@@ -49,24 +54,33 @@
         background-color: #d6efff;
       }
 
-      .season_toggle.all {
-        background-color: white;
-      }
+      .season_toggle {
+        padding: 8px 16px;
+        border: none;
+        cursor: pointer;
+        color: #2b2b2b;
+        transition: transform 0.2s ease, background 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 
-      .season_toggle.winter {
-        background-color: #e0f7fa;
-      }
+        &.all {
+          background-color: white;
+        }
 
-      .season_toggle.spring {
-        background-color: #e4fbe1;
-      }
+        &.winter {
+          background: linear-gradient(135deg, #e0f7ff, #d0ecf8);
+        }
 
-      .season_toggle.summer {
-        background-color: #ffe4ec;
-      }
+        &.spring {
+          background: linear-gradient(135deg, #e8fbe5, #d6f3cd);
+        }
 
-      .season_toggle.autumn {
-        background-color: #d49672;
+        &.summer {
+          background: linear-gradient(135deg, #fff3e0, #ffe3b3);
+        }
+
+        &.autumn {
+          background: linear-gradient(135deg, #ffe0cc, #ffccb3);
+        }
       }
     }
   }

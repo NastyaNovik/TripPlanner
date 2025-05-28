@@ -10,11 +10,11 @@
           <mat-icon>{{upcomingSort === 'asc' ? 'arrow_downward' : 'arrow_upward'}}</mat-icon>
         </button>
         <mat-button-toggle-group [(ngModel)]="selectedUpcomingSeason" (change)="onSeasonChange()">
-          <mat-button-toggle class="season_toggle all" value="">All</mat-button-toggle>
-          <mat-button-toggle class="season_toggle winter" value="winter">Winter</mat-button-toggle>
-          <mat-button-toggle class="season_toggle spring" value="spring">Spring</mat-button-toggle>
-          <mat-button-toggle class="season_toggle summer" value="summer">Summer</mat-button-toggle>
-          <mat-button-toggle class="season_toggle autumn" value="autumn">Autumn</mat-button-toggle>
+          <mat-button-toggle class="season_toggle all" [value] = season.All>All</mat-button-toggle>
+          <mat-button-toggle class="season_toggle winter" [value] = "season.Winter">Winter</mat-button-toggle>
+          <mat-button-toggle class="season_toggle spring" [value] = "season.Spring">Spring</mat-button-toggle>
+          <mat-button-toggle class="season_toggle summer" [value] = "season.Summer">Summer</mat-button-toggle>
+          <mat-button-toggle class="season_toggle autumn" [value] = "season.Autumn">Autumn</mat-button-toggle>
         </mat-button-toggle-group>
       </div>
     </div>
@@ -33,11 +33,11 @@
           <mat-icon>{{pastSort === 'asc' ? 'arrow_downward' : 'arrow_upward'}}</mat-icon>
         </button>
         <mat-button-toggle-group [(ngModel)]="selectedPastSeason" (change)="onSeasonChange()">
-          <mat-button-toggle class="season_toggle all" value="">All</mat-button-toggle>
-          <mat-button-toggle class="season_toggle winter" value="winter">Winter</mat-button-toggle>
-          <mat-button-toggle class="season_toggle spring" value="spring">Spring</mat-button-toggle>
-          <mat-button-toggle class="season_toggle summer" value="summer">Summer</mat-button-toggle>
-          <mat-button-toggle class="season_toggle autumn" value="autumn">Autumn</mat-button-toggle>
+          <mat-button-toggle class="season_toggle all" [value] = season.All>All</mat-button-toggle>
+          <mat-button-toggle class="season_toggle winter" [value] = "season.Winter">Winter</mat-button-toggle>
+          <mat-button-toggle class="season_toggle spring" [value] = "season.Spring">Spring</mat-button-toggle>
+          <mat-button-toggle class="season_toggle summer" [value] = "season.Summer">Summer</mat-button-toggle>
+          <mat-button-toggle class="season_toggle autumn" [value] = "season.Autumn">Autumn</mat-button-toggle>
         </mat-button-toggle-group>
       </div>
     </div>

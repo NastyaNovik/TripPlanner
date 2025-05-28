@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TripService} from '../../services/trip.service';
 import {Trip} from '../../models/trip';
+import {Season} from '../../enums/season.enum';
 
 @Component({
   selector: 'app-trip-notes-list',
@@ -14,8 +15,9 @@ export class TripNotesListComponent implements OnInit {
   pastTrips: Trip[] = [];
   upcomingSort ='asc';
   pastSort ='desc';
-  selectedUpcomingSeason = '';
-  selectedPastSeason = '';
+  season = Season;
+  selectedUpcomingSeason = Season.All;
+  selectedPastSeason = Season.All;
   filteredUpcomingTrips: Trip[] = [];
   filteredPastTrips: Trip[] = [];
 
@@ -69,6 +71,7 @@ export class TripNotesListComponent implements OnInit {
     this.upcomingTrips =this.sortTrips(this.upcomingTrips, this.upcomingSort);
     this.pastTrips =this.sortTrips(this.pastTrips, this.pastSort);
   }
+
   sortTrips(trips: Trip[], orderBy: string): Trip[] {
     return [...trips].sort((a, b) => {
       const timeA = new Date(a.dateFrom).getTime();

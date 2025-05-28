@@ -8,7 +8,5 @@ import {Trip} from '../../models/trip';
   styleUrl: './trip-card.component.scss'
 })
 export class TripCardComponent {
-
   @Input() trip!: Trip;
-
 }

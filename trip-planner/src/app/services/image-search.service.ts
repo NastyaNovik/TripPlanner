@@ -6,8 +6,8 @@ import { Observable, map } from 'rxjs';
   providedIn: 'root'
 })
 export class ImageSearchService {
-  private apiKey = '8r-VPLp1n1Dv5IoipnMSH_8_8LW_nKEFGs5FzxBsdw8';
-  private apiUrl = 'https://api.unsplash.com/search/photos';
+  private readonly apiKey = '8r-VPLp1n1Dv5IoipnMSH_8_8LW_nKEFGs5FzxBsdw8';
+  private readonly apiUrl = 'https://api.unsplash.com/search/photos';
 
   constructor(private http: HttpClient) {}
 

@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Trip} from '../../models/trip';
+import {Season, SeasonIcon} from '../../enums/season.enum';
 
 @Component({
   selector: 'app-trip-card',
@@ -9,4 +10,25 @@ import {Trip} from '../../models/trip';
 })
 export class TripCardComponent {
   @Input() trip!: Trip;
+
+  seasonIcon = '';
+
+  ngOnInit(): void {
+    this.seasonIcon = this.getSeasonIcon(this.trip.season);
+  }
+
+  private getSeasonIcon(season: string): string {
+    switch (season) {
+      case Season.Spring:
+        return SeasonIcon.Spring;
+      case Season.Summer:
+        return SeasonIcon.Summer;
+      case Season.Autumn:
+        return SeasonIcon.Autumn;
+      case Season.Winter:
+        return SeasonIcon.Winter;
+      default:
+        return '';
+    }
+  }
 }

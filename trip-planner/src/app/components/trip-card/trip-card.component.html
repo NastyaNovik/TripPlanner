@@ -5,8 +5,5 @@
     <div class="trip_dates">{{ trip.dateFrom | date: 'd MMM y' }} – {{ trip.dateTo | date: 'd MMM y' }}</div>
   </mat-card-content>
 
-  <mat-icon class="season_icon" *ngIf="trip.season === 'spring'">local_florist</mat-icon>
-  <mat-icon class="season_icon" *ngIf="trip.season === 'summer'">wb_sunny</mat-icon>
-  <mat-icon class="season_icon" *ngIf="trip.season === 'autumn'">eco</mat-icon>
-  <mat-icon class="season_icon" *ngIf="trip.season === 'winter'">ac_unit</mat-icon>
+  <mat-icon class="season_icon">{{ seasonIcon }}</mat-icon>
 </mat-card>

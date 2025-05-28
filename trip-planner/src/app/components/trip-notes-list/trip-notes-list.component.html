@@ -6,7 +6,7 @@
         <mat-icon style="color: orange;">whatshot</mat-icon>
       </div>
       <div class="button_container">
-        <button class="sortButton" mat-fab extended (click)="upcomingSorting()"> {{upcomingSort === 'asc'? 'Closest First' : 'Furthest First'}}
+        <button class="sort_button" mat-fab extended (click)="upcomingSorting()"> {{upcomingSort === 'asc'? 'Closest First' : 'Furthest First'}}
           <mat-icon>{{upcomingSort === 'asc' ? 'arrow_downward' : 'arrow_upward'}}</mat-icon>
         </button>
         <mat-button-toggle-group [(ngModel)]="selectedUpcomingSeason" (change)="onSeasonChange()">
@@ -29,7 +29,7 @@
     <div class="section_header">
       <span>Past...</span>
       <div class="button_container">
-        <button class="sortButton" mat-fab extended (click)="pastSorting()"> {{pastSort === 'desc'? 'Most Recent First' : 'Oldest First'}}
+        <button class="sort_button" mat-fab extended (click)="pastSorting()"> {{pastSort === 'desc'? 'Most Recent First' : 'Oldest First'}}
           <mat-icon>{{pastSort === 'asc' ? 'arrow_downward' : 'arrow_upward'}}</mat-icon>
         </button>
         <mat-button-toggle-group [(ngModel)]="selectedPastSeason" (change)="onSeasonChange()">

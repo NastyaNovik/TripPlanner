@@ -24,6 +24,10 @@ export class TripNotesListComponent implements OnInit {
   constructor(private tripService: TripService) {}
 
   ngOnInit(): void {
+    this.loadTrips();
+  }
+
+  private loadTrips(): void{
     this.tripService.getTrips().subscribe(({ upcoming, past }) => {
       this.upcomingTrips = upcoming.map(trip => ({
         ...trip,
@@ -43,7 +47,7 @@ export class TripNotesListComponent implements OnInit {
     });
   }
 
-  getSeason(dateFrom: string): Season {
+  private getSeason(dateFrom: string): Season {
     const month = parseInt(dateFrom.split('-')[1]);
     switch(month){
       case 12:
@@ -67,12 +71,12 @@ export class TripNotesListComponent implements OnInit {
     }
   }
 
-  applySort(): void {
+  private applySort(): void {
     this.upcomingTrips =this.sortTrips(this.upcomingTrips, this.upcomingSort);
     this.pastTrips =this.sortTrips(this.pastTrips, this.pastSort);
   }
 
-  sortTrips(trips: Trip[], orderBy: string): Trip[] {
+  private sortTrips(trips: Trip[], orderBy: string): Trip[] {
     return [...trips].sort((a, b) => {
       const timeA = new Date(a.dateFrom).getTime();
       const timeB = new Date(b.dateFrom).getTime();
@@ -92,7 +96,7 @@ export class TripNotesListComponent implements OnInit {
     this.applyFilter();
   }
 
-  applyFilter(): void {
+  private applyFilter(): void {
     this.filteredUpcomingTrips = this.selectedUpcomingSeason
       ? this.upcomingTrips.filter(trip => trip.season === this.selectedUpcomingSeason)
       : this.upcomingTrips;

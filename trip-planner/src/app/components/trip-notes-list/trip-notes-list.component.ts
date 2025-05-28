@@ -23,7 +23,7 @@ export class TripNotesListComponent implements OnInit {
 
   constructor(private tripService: TripService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.tripService.getTrips().subscribe(({ upcoming, past }) => {
       this.upcomingTrips = upcoming.map(trip => ({
         ...trip,
@@ -43,31 +43,31 @@ export class TripNotesListComponent implements OnInit {
     });
   }
 
-  getSeason(dateFrom: string){
+  getSeason(dateFrom: string): Season {
     const month = parseInt(dateFrom.split('-')[1]);
     switch(month){
       case 12:
       case 1:
       case 2:
-          return 'winter';
+          return Season.Winter;
       case 3:
       case 4:
       case 5:
-        return 'spring';
+        return Season.Spring;
       case 6:
       case 7:
       case 8:
-        return 'summer';
+        return Season.Summer;
       case 9:
       case 10:
       case 11:
-        return 'autumn';
+        return Season.Autumn;
       default:
-        return 'summer';
+        return Season.All;
     }
   }
 
-  applySort(){
+  applySort(): void {
     this.upcomingTrips =this.sortTrips(this.upcomingTrips, this.upcomingSort);
     this.pastTrips =this.sortTrips(this.pastTrips, this.pastSort);
   }
@@ -80,19 +80,19 @@ export class TripNotesListComponent implements OnInit {
       });
   }
 
-  upcomingSorting(){
+  upcomingSorting(): void {
     this.upcomingSort = this.upcomingSort === 'asc' ? 'desc' : 'asc';
     this.upcomingTrips = this.sortTrips(this.upcomingTrips, this.upcomingSort);
     this.applyFilter();
   }
 
-  pastSorting(){
+  pastSorting(): void {
     this.pastSort = this.pastSort === 'desc' ? 'asc' : 'desc';
     this.pastTrips = this.sortTrips(this.pastTrips, this.pastSort);
     this.applyFilter();
   }
 
-  applyFilter(){
+  applyFilter(): void {
     this.filteredUpcomingTrips = this.selectedUpcomingSeason
       ? this.upcomingTrips.filter(trip => trip.season === this.selectedUpcomingSeason)
       : this.upcomingTrips;
@@ -102,7 +102,7 @@ export class TripNotesListComponent implements OnInit {
       : this.pastTrips;
   }
 
-  onSeasonChange() {
+  onSeasonChange(): void {
     this.applyFilter();
   }
 }

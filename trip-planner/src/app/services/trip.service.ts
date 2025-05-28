@@ -9,7 +9,6 @@ import { ImageSearchService } from './image-search.service';
 @Injectable({
   providedIn: 'root'
 })
-
 export class TripService {
   private apiUrl = 'http://localhost:3000/trips';
 

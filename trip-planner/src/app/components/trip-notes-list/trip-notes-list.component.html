@@ -6,8 +6,8 @@
         <mat-icon style="color: orange;">whatshot</mat-icon>
       </div>
       <div class="button_container">
-        <button class="sort_button" mat-fab extended (click)="upcomingSorting()"> {{upcomingSort === sortOrder.Asc? sortLabel.UpcomingAsc : sortLabel.UpcomingDesc}}
-          <mat-icon>{{upcomingSort === sortOrder.Asc ? sortOrderIcon.Asc : sortOrderIcon.Desc}}</mat-icon>
+        <button class="sort_button" mat-fab extended (click)="upcomingSorting()"> {{ upcomingSortLabel }}
+          <mat-icon>{{ upcomingSortIcon }}</mat-icon>
         </button>
         <mat-button-toggle-group [(ngModel)]="selectedUpcomingSeason" (change)="onSeasonChange()">
           <mat-button-toggle class="season_toggle all" [value] = season.All>All</mat-button-toggle>
@@ -29,8 +29,8 @@
     <div class="section_header">
       <span>{{ tripSection.Past}}</span>
       <div class="button_container">
-        <button class="sort_button" mat-fab extended (click)="pastSorting()"> {{pastSort === sortOrder.Desc? sortLabel.PastDesc : sortLabel.PastAsc}}
-          <mat-icon>{{pastSort === sortOrder.Asc ? sortOrderIcon.Asc : sortOrderIcon.Desc}}</mat-icon>
+        <button class="sort_button" mat-fab extended (click)="pastSorting()"> {{ pastSortLabel }}
+          <mat-icon>{{ pastSortIcon }}</mat-icon>
         </button>
         <mat-button-toggle-group [(ngModel)]="selectedPastSeason" (change)="onSeasonChange()">
           <mat-button-toggle class="season_toggle all" [value] = season.All>All</mat-button-toggle>

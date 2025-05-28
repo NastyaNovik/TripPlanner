@@ -115,4 +115,28 @@ export class TripNotesListComponent implements OnInit {
   onSeasonChange(): void {
     this.applyFilter();
   }
+
+  get upcomingSortLabel(): string {
+    return this.upcomingSort === this.sortOrder.Asc
+      ? this.sortLabel.UpcomingAsc
+      : this.sortLabel.UpcomingDesc;
+  }
+
+  get upcomingSortIcon(): string {
+    return this.upcomingSort === this.sortOrder.Asc
+      ? this.sortOrderIcon.Asc
+      : this.sortOrderIcon.Desc;
+  }
+
+  get pastSortLabel(): string {
+    return this.pastSort === this.sortOrder.Desc
+      ? this.sortLabel.PastDesc
+      : this.sortLabel.PastAsc;
+  }
+
+  get pastSortIcon(): string {
+    return this.pastSort === this.sortOrder.Asc
+      ? this.sortOrderIcon.Asc
+      : this.sortOrderIcon.Desc;
+  }
 }

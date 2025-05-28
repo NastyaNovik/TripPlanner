@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import { TripCardComponent } from './trip-card.component';
 
@@ -6,8 +6,8 @@ describe('TripCardComponent', () => {
   let component: TripCardComponent;
   let fixture: ComponentFixture<TripCardComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
       declarations: [TripCardComponent]
     })
     .compileComponents();
@@ -15,7 +15,7 @@ describe('TripCardComponent', () => {
     fixture = TestBed.createComponent(TripCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

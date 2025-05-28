@@ -1,3 +1,5 @@
+@use '../../../assets/styles/variables' as *;
+
 .wrapper {
   min-height: 100vh;
   display: flex;
@@ -67,19 +69,19 @@
         }
 
         &.winter {
-          background: linear-gradient(135deg, #e0f7ff, #d0ecf8);
+          background: linear-gradient(135deg, $winterFrom, $winterTo);
         }
 
         &.spring {
-          background: linear-gradient(135deg, #e8fbe5, #d6f3cd);
+          background: linear-gradient(135deg, $springFrom, $springTo);
         }
 
         &.summer {
-          background: linear-gradient(135deg, #fff3e0, #ffe3b3);
+          background: linear-gradient(135deg, $summerFrom, $summerTo);
         }
 
         &.autumn {
-          background: linear-gradient(135deg, #ffe0cc, #ffccb3);
+          background: linear-gradient(135deg, $autumnFrom, $autumnTo);
         }
       }
     }

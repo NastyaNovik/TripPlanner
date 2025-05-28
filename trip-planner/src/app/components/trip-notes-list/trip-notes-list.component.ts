@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {TripService} from '../../services/trip.service';
 import {Trip} from '../../models/trip';
 import {Season} from '../../enums/season.enum';
+import {SortLabel, SortOrder, SortOrderIcon} from '../../enums/sort-order.enum';
+import {TripSection} from '../../enums/trip-section.enum';
 
 @Component({
   selector: 'app-trip-notes-list',
@@ -13,13 +15,17 @@ import {Season} from '../../enums/season.enum';
 export class TripNotesListComponent implements OnInit {
   upcomingTrips: Trip[] = [];
   pastTrips: Trip[] = [];
-  upcomingSort ='asc';
-  pastSort ='desc';
+  upcomingSort = SortOrder.Asc;
+  pastSort = SortOrder.Desc;
   season = Season;
   selectedUpcomingSeason = Season.All;
   selectedPastSeason = Season.All;
   filteredUpcomingTrips: Trip[] = [];
   filteredPastTrips: Trip[] = [];
+  sortOrder = SortOrder;
+  sortOrderIcon = SortOrderIcon;
+  sortLabel = SortLabel;
+  tripSection = TripSection;
 
   constructor(private tripService: TripService) {}
 
@@ -80,18 +86,18 @@ export class TripNotesListComponent implements OnInit {
     return [...trips].sort((a, b) => {
       const timeA = new Date(a.dateFrom).getTime();
       const timeB = new Date(b.dateFrom).getTime();
-      return orderBy === 'asc'? timeA - timeB : timeB - timeA;
+      return orderBy === SortOrder.Asc? timeA - timeB : timeB - timeA;
       });
   }
 
   upcomingSorting(): void {
-    this.upcomingSort = this.upcomingSort === 'asc' ? 'desc' : 'asc';
+    this.upcomingSort = this.upcomingSort === SortOrder.Asc ? SortOrder.Desc : SortOrder.Asc;
     this.upcomingTrips = this.sortTrips(this.upcomingTrips, this.upcomingSort);
     this.applyFilter();
   }
 
   pastSorting(): void {
-    this.pastSort = this.pastSort === 'desc' ? 'asc' : 'desc';
+    this.pastSort = this.pastSort === SortOrder.Desc ? SortOrder.Asc : SortOrder.Desc;
     this.pastTrips = this.sortTrips(this.pastTrips, this.pastSort);
     this.applyFilter();
   }

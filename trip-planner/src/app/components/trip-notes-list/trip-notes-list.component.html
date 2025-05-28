@@ -2,12 +2,12 @@
   <div class="trip_section upcoming">
     <div class="section_header">
       <div class="header">
-        <span>Upcoming...</span>
+        <span>{{ tripSection.Upcoming }}</span>
         <mat-icon style="color: orange;">whatshot</mat-icon>
       </div>
       <div class="button_container">
-        <button class="sort_button" mat-fab extended (click)="upcomingSorting()"> {{upcomingSort === 'asc'? 'Closest First' : 'Furthest First'}}
-          <mat-icon>{{upcomingSort === 'asc' ? 'arrow_downward' : 'arrow_upward'}}</mat-icon>
+        <button class="sort_button" mat-fab extended (click)="upcomingSorting()"> {{upcomingSort === sortOrder.Asc? sortLabel.UpcomingAsc : sortLabel.UpcomingDesc}}
+          <mat-icon>{{upcomingSort === sortOrder.Asc ? sortOrderIcon.Asc : sortOrderIcon.Desc}}</mat-icon>
         </button>
         <mat-button-toggle-group [(ngModel)]="selectedUpcomingSeason" (change)="onSeasonChange()">
           <mat-button-toggle class="season_toggle all" [value] = season.All>All</mat-button-toggle>
@@ -27,10 +27,10 @@
 
   <div class="trip_section past">
     <div class="section_header">
-      <span>Past...</span>
+      <span>{{ tripSection.Past}}</span>
       <div class="button_container">
-        <button class="sort_button" mat-fab extended (click)="pastSorting()"> {{pastSort === 'desc'? 'Most Recent First' : 'Oldest First'}}
-          <mat-icon>{{pastSort === 'asc' ? 'arrow_downward' : 'arrow_upward'}}</mat-icon>
+        <button class="sort_button" mat-fab extended (click)="pastSorting()"> {{pastSort === sortOrder.Desc? sortLabel.PastDesc : sortLabel.PastAsc}}
+          <mat-icon>{{pastSort === sortOrder.Asc ? sortOrderIcon.Asc : sortOrderIcon.Desc}}</mat-icon>
         </button>
         <mat-button-toggle-group [(ngModel)]="selectedPastSeason" (change)="onSeasonChange()">
           <mat-button-toggle class="season_toggle all" [value] = season.All>All</mat-button-toggle>

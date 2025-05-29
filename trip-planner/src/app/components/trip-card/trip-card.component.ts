@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {Trip} from '../../models/trip';
 import {Season, SeasonIcon} from '../../enums/season.enum';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-trip-card',
@@ -12,6 +13,8 @@ export class TripCardComponent {
   @Input() trip!: Trip;
 
   seasonIcon = '';
+
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.seasonIcon = this.getSeasonIcon(this.trip.season);
@@ -30,5 +33,11 @@ export class TripCardComponent {
       default:
         return '';
     }
+  }
+
+  openNote(trip: Trip): void {
+    this.router.navigate([`/note/${trip.id}`],{
+      state: {trip}
+    });
   }
 }

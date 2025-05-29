@@ -1,0 +1,72 @@
+.wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.note_map {
+  display: flex;
+  gap: 2%;
+  width: 100%;
+}
+
+.trip_title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #888888;
+}
+
+.trip_title_input {
+  border-radius: 16px;
+  border: 2px solid #e0e0e0;
+  padding: 10px 16px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  width: 100%;
+  max-width: 600px;
+  margin: 2% 0 3%;
+}
+
+.note {
+  background-color: #fffff7;
+  flex: 1 1 50%;
+  width: 50%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  box-sizing: border-box;
+
+  .note_title {
+    font-size: 1.5rem;
+    margin-bottom: 2%;
+    color: #888888;
+  }
+
+  ::ng-deep {
+    .ql-toolbar {
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      background-color: #f5e9d4;
+      border-bottom: none;
+    }
+
+    .ql-container {
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      background-color: #fbf7f0;
+    }
+
+    .ql-editor {
+      min-height: 60vh;
+    }
+  }
+}
+
+.map {
+  background-color: #f3f3f3;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  flex: 1 1 50%;
+  width: 50%;
+  border-radius: 12px;
+  padding: 16px;
+  box-sizing: border-box;
+}

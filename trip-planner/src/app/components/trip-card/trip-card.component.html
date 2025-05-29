@@ -1,9 +1,13 @@
-<mat-card class="trip_card" [ngClass]="trip.season">
+<mat-card class="trip_card" [ngClass]="trip.season" (click)="openNote(trip)">
   <img mat-card-image [src]="trip.imageUrl" [alt]="trip.title" />
-  <mat-card-content>
-    <h3>{{ trip.title }}</h3>
-    <div class="trip_dates">{{ trip.dateFrom | date: 'd MMM y' }} – {{ trip.dateTo | date: 'd MMM y' }}</div>
-  </mat-card-content>
-
-  <mat-icon class="season_icon">{{ seasonIcon }}</mat-icon>
+  <div class="content">
+    <mat-card-content>
+      <h3>{{ trip.title }}</h3>
+      <div class="trip_dates">{{ trip.dateFrom | date: 'd MMM y' }} – {{ trip.dateTo | date: 'd MMM y' }}</div>
+    </mat-card-content>
+<!--    <button mat-icon-button>-->
+<!--      <mat-icon>delete</mat-icon>-->
+<!--    </button>-->
+    <mat-icon class="season_icon">{{ seasonIcon }}</mat-icon>
+  </div>
 </mat-card>

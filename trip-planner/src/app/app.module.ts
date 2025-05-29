@@ -10,9 +10,10 @@ import { MatCardModule } from '@angular/material/card';
 import { NgOptimizedImage } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { TripCardComponent } from './components/trip-card/trip-card.component';
-import { MatButton, MatFabButton } from '@angular/material/button';
+import { MatButton, MatFabButton, MatIconButton } from '@angular/material/button';
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,9 @@ import { FormsModule } from '@angular/forms';
     MatFabButton,
     MatButtonToggleGroup,
     MatButtonToggle,
-    FormsModule
+    FormsModule,
+    QuillModule.forRoot(),
+    MatIconButton
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi())

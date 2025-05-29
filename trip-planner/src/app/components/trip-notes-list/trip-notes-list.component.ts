@@ -34,6 +34,7 @@ export class TripNotesListComponent implements OnInit {
   }
 
   private loadTrips(): void{
+    localStorage.removeItem('trips');
     this.tripService.getTrips().subscribe(({ upcoming, past }) => {
       this.upcomingTrips = upcoming.map(trip => ({
         ...trip,

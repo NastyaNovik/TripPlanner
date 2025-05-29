@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { forkJoin, Observable } from 'rxjs';
+import {forkJoin, Observable, tap} from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Trip } from '../models/trip';
 import { TripsByDateStatus } from '../models/trips-by-date-status';
@@ -25,6 +25,9 @@ export class TripService {
           )
         )
       ),
+      tap(tripsWithImages => {
+        localStorage.setItem('trips', JSON.stringify(tripsWithImages));
+      }),
       map(tripsWithImages => {
         const now = new Date();
         return {
@@ -33,5 +36,31 @@ export class TripService {
         };
       })
     );
+  }
+
+  getTripById(id: number): Observable<Trip> {
+    return this.http.get<Trip>(`${this.apiUrl}/${id}`);
+  }
+
+  saveTrip(trip: Trip): Observable<Trip> {
+    if(trip.id){
+      return this.http.put<Trip>(`${this.apiUrl}/${trip.id}`, trip);
+    }
+    else{
+      return this.createTrip(trip);
+    }
+  }
+
+  private createTrip(trip: Trip): Observable<Trip> {
+    const savedTrips = JSON.parse(localStorage.getItem('trips') || '[]');
+    const maxId = savedTrips.length
+      ? Math.max(...savedTrips.map((t: Trip) => t.id || 0))
+      : 0;
+    trip.id = (maxId + 1).toString();
+    trip.dateFrom = "2026-04-08";
+    trip.dateTo = "2026-05-09";
+    const updatedTrips = [...savedTrips, trip];
+    localStorage.setItem('trips', JSON.stringify(updatedTrips));
+    return this.http.post<Trip>(`${this.apiUrl}`, trip);
   }
 }

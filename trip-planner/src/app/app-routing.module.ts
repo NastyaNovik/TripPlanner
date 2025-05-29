@@ -5,12 +5,14 @@ import {TripNoteEditorComponent} from './components/trip-note-editor/trip-note-e
 
 const routes: Routes = [
   { path: '', component: TripNotesListComponent },
-  { path: 'create', component: TripNoteEditorComponent },
-  { path: ':id/edit', component: TripNoteEditorComponent },
+  { path: 'note', component: TripNoteEditorComponent },
+  { path: 'note/:id', component: TripNoteEditorComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    scrollPositionRestoration: 'enabled'
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

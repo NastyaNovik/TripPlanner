@@ -1,1 +1,22 @@
-<p>trip-note-editor works!</p>
+<div class="wrapper">
+  <input
+    class="trip_title_input"
+    [(ngModel)]="tripTitle"
+    (ngModelChange)="onContentChange()"
+    placeholder="Title"
+  />
+  <div class="note_map">
+    <div class="note">
+      <div class="note_title">Notes</div>
+      <quill-editor
+        [(ngModel)]="noteContent"
+        (ngModelChange)="onContentChange()"
+        [modules]="quillModules"
+        placeholder="Write down some notes on travel plans here...">
+      </quill-editor>
+    </div>
+    <div class="map">
+
+    </div>
+  </div>
+</div>

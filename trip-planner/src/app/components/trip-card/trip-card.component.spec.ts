@@ -1,18 +1,18 @@
 import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { TripNotesListComponent } from './trip-notes-list.component';
+import { TripCardComponent } from './trip-card.component';
 
-describe('TripNotesListComponent', () => {
-  let component: TripNotesListComponent;
-  let fixture: ComponentFixture<TripNotesListComponent>;
+describe('TripCardComponent', () => {
+  let component: TripCardComponent;
+  let fixture: ComponentFixture<TripCardComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [TripNotesListComponent]
+      declarations: [TripCardComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TripNotesListComponent);
+    fixture = TestBed.createComponent(TripCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {forkJoin, Observable, tap} from 'rxjs';
+import {forkJoin, Observable, of, tap} from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Trip } from '../models/trip';
 import { TripsByDateStatus } from '../models/trips-by-date-status';
@@ -11,30 +11,34 @@ import { ImageSearchService } from './image-search.service';
 })
 export class TripService {
   private apiUrl = 'http://localhost:3000/trips';
+  private readonly cacheTripKey = 'trips';
 
   constructor(private http: HttpClient, private imageSearch: ImageSearchService) { }
 
   getTrips(): Observable<TripsByDateStatus> {
+    const cached = localStorage.getItem(this.cacheTripKey);
+
+    if (cached) {
+      const trips = JSON.parse(cached);
+      return of(this.groupTripsByDate(trips));
+    }
+
     return this.http.get<Trip[]>(this.apiUrl).pipe(
-      switchMap(trips =>
-        forkJoin(
-          trips.map(trip =>
-            this.imageSearch.searchImage(trip.title).pipe(
-              map(imageUrl => ({ ...trip, imageUrl }))
-            )
-          )
-        )
-      ),
-      tap(tripsWithImages => {
-        localStorage.setItem('trips', JSON.stringify(tripsWithImages));
+      switchMap(trips => {
+        const tripsWithImages$ = trips.map(trip => {
+          if (trip.imageUrl) {
+            return of(trip);
+          }
+          return this.imageSearch.searchImage(trip.title).pipe(
+            map(imageUrl => ({ ...trip, imageUrl }))
+          );
+        });
+        return forkJoin(tripsWithImages$);
       }),
-      map(tripsWithImages => {
-        const now = new Date();
-        return {
-          upcoming: tripsWithImages.filter(trip => new Date(trip.dateFrom) >= now),
-          past: tripsWithImages.filter(trip => new Date(trip.dateFrom) < now),
-        };
-      })
+      tap(tripsWithImages => {
+        localStorage.setItem(this.cacheTripKey, JSON.stringify(tripsWithImages));
+      }),
+      map(trips => this.groupTripsByDate(trips))
     );
   }
 
@@ -43,16 +47,22 @@ export class TripService {
   }
 
   saveTrip(trip: Trip): Observable<Trip> {
-    if(trip.id){
-      return this.http.put<Trip>(`${this.apiUrl}/${trip.id}`, trip);
-    }
-    else{
-      return this.createTrip(trip);
-    }
+    return this.imageSearch.searchImage(trip.title).pipe(
+      switchMap(imageUrl => {
+        const tripWithImage = { ...trip, imageUrl };
+        if (trip.id) {
+          return this.http.put<Trip>(`${this.apiUrl}/${trip.id}`, tripWithImage).pipe(
+            tap(updated => this.updateLocalTrip(updated))
+          );
+        } else {
+          return this.createTrip(tripWithImage);
+        }
+      })
+    );
   }
 
   private createTrip(trip: Trip): Observable<Trip> {
-    const savedTrips = JSON.parse(localStorage.getItem('trips') || '[]');
+    const savedTrips = JSON.parse(localStorage.getItem(this.cacheTripKey) || '[]');
     const maxId = savedTrips.length
       ? Math.max(...savedTrips.map((t: Trip) => t.id || 0))
       : 0;
@@ -60,7 +70,25 @@ export class TripService {
     trip.dateFrom = "2026-04-08";
     trip.dateTo = "2026-05-09";
     const updatedTrips = [...savedTrips, trip];
-    localStorage.setItem('trips', JSON.stringify(updatedTrips));
+    localStorage.setItem(this.cacheTripKey, JSON.stringify(updatedTrips));
     return this.http.post<Trip>(`${this.apiUrl}`, trip);
+  }
+
+  private updateLocalTrip(updatedTrip: Trip) {
+    const trips = this.getLocalTrips();
+    const updatedTrips = trips.map(trip => trip.id === updatedTrip.id ? updatedTrip : trip);
+    localStorage.setItem(this.cacheTripKey, JSON.stringify(updatedTrips));
+  }
+
+  private getLocalTrips(): Trip[] {
+    return JSON.parse(localStorage.getItem(this.cacheTripKey) || '[]');
+  }
+
+  private groupTripsByDate(trips: Trip[]): TripsByDateStatus {
+    const now = new Date();
+    return {
+      upcoming: trips.filter(trip => new Date(trip.dateFrom) >= now),
+      past: trips.filter(trip => new Date(trip.dateFrom) < now),
+    };
   }
 }

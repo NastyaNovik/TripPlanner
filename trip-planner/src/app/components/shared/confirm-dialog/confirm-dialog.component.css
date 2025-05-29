@@ -1,0 +1,17 @@
+::ng-deep .custom-confirm-dialog .mat-mdc-dialog-container {
+  border-radius: 12px;
+  padding: 2em;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+::ng-deep .custom-confirm-dialog .mat-mdc-dialog-container .mat-dialog-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+::ng-deep .custom-confirm-dialog .mat-mdc-dialog-surface {
+  background: #e3f7ff;
+}

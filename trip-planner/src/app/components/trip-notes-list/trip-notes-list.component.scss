@@ -19,13 +19,16 @@
   }
 
   .section_header {
-    margin: 1% 1%;
+    margin: 1% 1% 2%;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: #888888;
     font-size: 18px;
     display: flex;
-    flex-direction: column;
+
+    .header{
+      align-content: center;
+    }
 
     mat-icon {
       font-size: 1.7rem;
@@ -34,7 +37,6 @@
     .button_container {
       display: flex;
       width: 80%;
-      margin: 2% 2% 2% 0;
       gap: 10%;
       justify-content: center;
       align-self: center;

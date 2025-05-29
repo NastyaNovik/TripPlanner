@@ -14,6 +14,8 @@ import { MatButton, MatFabButton, MatIconButton } from '@angular/material/button
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
+import { ConfirmDialogComponent } from './components/shared/confirm-dialog/confirm-dialog.component';
+import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { QuillModule } from 'ngx-quill';
     TripNotesListComponent,
     TripNoteEditorComponent,
     NavbarComponent,
-    TripCardComponent
+    TripCardComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,11 @@ import { QuillModule } from 'ngx-quill';
     MatButtonToggle,
     FormsModule,
     QuillModule.forRoot(),
-    MatIconButton
+    MatIconButton,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogContent,
+    MatDialogTitle
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi())

@@ -1,13 +1,15 @@
 <mat-card class="trip_card" [ngClass]="trip.season" (click)="openNote(trip)">
-  <img mat-card-image [src]="trip.imageUrl" [alt]="trip.title" />
-  <div class="content">
-    <mat-card-content>
-      <h3>{{ trip.title }}</h3>
-      <div class="trip_dates">{{ trip.dateFrom | date: 'd MMM y' }} – {{ trip.dateTo | date: 'd MMM y' }}</div>
-    </mat-card-content>
-<!--    <button mat-icon-button>-->
-<!--      <mat-icon>delete</mat-icon>-->
-<!--    </button>-->
-    <mat-icon class="season_icon">{{ seasonIcon }}</mat-icon>
+  <div class="card_toolbar" (click)="$event.stopPropagation()">
+    <button class="trash_button" mat-icon-button (click)="onDeleteTrip()">
+      <mat-icon>delete</mat-icon>
+    </button>
   </div>
+  <img mat-card-image [src]="trip.imageUrl" [alt]="trip.title" />
+  <mat-card-content>
+    <h3>{{ trip.title }}</h3>
+    <div class="trip_dates">
+      {{ trip.dateFrom | date: 'd MMM y' }} – {{ trip.dateTo | date: 'd MMM y' }}
+    </div>
+  </mat-card-content>
+  <mat-icon class="season_icon">{{ seasonIcon }}</mat-icon>
 </mat-card>

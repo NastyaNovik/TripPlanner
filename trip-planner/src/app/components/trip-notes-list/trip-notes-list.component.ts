@@ -139,4 +139,9 @@ export class TripNotesListComponent implements OnInit {
       ? this.sortOrderIcon.Asc
       : this.sortOrderIcon.Desc;
   }
+
+  onTripDeleted(deletedId: string): void {
+    this.filteredUpcomingTrips = this.filteredUpcomingTrips.filter(trip => trip.id !== deletedId);
+    this.filteredPastTrips = this.filteredPastTrips.filter(trip => trip.id !== deletedId);
+  }
 }

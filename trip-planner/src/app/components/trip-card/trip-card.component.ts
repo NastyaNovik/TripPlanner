@@ -1,9 +1,10 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Trip} from '../../models/trip';
 import {Season, SeasonIcon} from '../../enums/season.enum';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../shared/confirm-dialog/confirm-dialog.component';
+import {TripService} from '../../services/trip.service';
 
 @Component({
   selector: 'app-trip-card',
@@ -15,10 +16,12 @@ export class TripCardComponent {
   @Input() trip!: Trip;
   seasonIcon = '';
   readonly dialogMessage = 'Are you sure you want to delete this trip?';
+  @Output() onDelete = new EventEmitter();
 
   constructor(
     private router: Router,
-    private dialog: MatDialog) {}
+    private dialog: MatDialog,
+    private tripService: TripService) {}
 
   ngOnInit(): void {
     this.seasonIcon = this.getSeasonIcon(this.trip.season);
@@ -39,7 +42,7 @@ export class TripCardComponent {
     }
   }
 
-  openNote(trip: Trip): void {
+  openTripNote(trip: Trip): void {
     this.router.navigate([`/note/${trip.id}`],{
       state: {trip}
     });
@@ -52,7 +55,9 @@ export class TripCardComponent {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-       // this.deleteItem();
+        this.tripService.deleteTrip(this.trip.id).subscribe(() => {
+          this.onDelete.emit(this.trip.id);
+        })
       }
     });
   }

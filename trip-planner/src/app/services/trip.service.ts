@@ -61,6 +61,15 @@ export class TripService {
     );
   }
 
+  deleteTrip(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      tap(() => {
+        const tripsWithoutDeletedItem = this.getLocalTrips().filter(trip => trip.id !== id);
+        localStorage.setItem(this.cacheTripKey, JSON.stringify(tripsWithoutDeletedItem));
+      })
+    );
+  }
+
   private createTrip(trip: Trip): Observable<Trip> {
     const savedTrips = JSON.parse(localStorage.getItem(this.cacheTripKey) || '[]');
     const maxId = savedTrips.length

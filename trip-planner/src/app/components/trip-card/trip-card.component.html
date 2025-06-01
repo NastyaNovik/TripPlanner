@@ -1,4 +1,4 @@
-<mat-card class="trip_card" [ngClass]="trip.season" (click)="openNote(trip)">
+<mat-card class="trip_card" [ngClass]="trip.season" (click)="openTripNote(trip)">
   <div class="card_toolbar" (click)="$event.stopPropagation()">
     <button class="trash_button" mat-icon-button (click)="onDeleteTrip()">
       <mat-icon>delete</mat-icon>

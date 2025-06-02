@@ -9,6 +9,24 @@
   width: 100%;
 }
 
+.trip-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+::ng-deep .mat-mdc-form-field-flex {
+  border-radius: 16px !important;
+  padding: 1% 5% !important;
+  background-color: #fae8c3 !important;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+  border-radius: 16px !important;
+  background-color: #ccbd9f !important;
+}
+
 .trip_title {
   font-size: 1.3rem;
   font-weight: bold;
@@ -62,7 +80,7 @@
 }
 
 .map {
-  background-color: #f3f3f3;
+  background-color: #cfeffc;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   flex: 1 1 50%;
   width: 50%;

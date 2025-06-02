@@ -3,6 +3,7 @@ import {Trip} from '../../models/trip';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TripService} from '../../services/trip.service';
 import {debounceTime, distinctUntilChanged, Subject, Subscription} from 'rxjs';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-trip-note-editor',
@@ -16,6 +17,13 @@ export class TripNoteEditorComponent {
   tripTitle = '';
   private saveSubject = new Subject<Trip>();
   private saveSubscription!: Subscription;
+  center!: google.maps.LatLngLiteral;
+  zoom!: number;
+  markers: google.maps.LatLngLiteral[] = [];
+  bounds!: google.maps.LatLngBounds;
+  map!: google.maps.Map;
+  dateFrom!: Date;
+  dateTo!: Date;
 
   constructor(
     private router: Router,
@@ -32,23 +40,32 @@ export class TripNoteEditorComponent {
       this.trip = tripFromState;
       this.tripTitle = tripFromState.title || '';
       this.noteContent = tripFromState.note || '';
+      this.setGoogleMapsMarkers(this.trip);
+      this.dateFrom = new Date(this.trip.dateFrom);
+      this.dateTo = new Date(this.trip.dateTo);
     }
     else if (id) {
       this.tripService.getTripById(id).subscribe(trip => {
         this.trip = trip;
         this.tripTitle = trip.title || '';
         this.noteContent = trip.note || '';
+        this.setGoogleMapsMarkers(this.trip);
+        this.dateFrom = new Date(this.trip.dateFrom);
+        this.dateTo = new Date(this.trip.dateTo);
       });
     }
     else {
+      const tomorrow = new Date();
+      const afterTomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      afterTomorrow.setDate(tomorrow.getDate() + 1);
+
+      this.dateFrom = tomorrow;
+      this.dateTo = afterTomorrow;
       this.trip = {
         id: '',
-        title: '',
-        dateFrom: '',
-        dateTo: '',
-        imageUrl: '',
-        note: ''
       } as Trip;
+      this.setGoogleMapsMarkers(this.trip);
     }
 
     this.saveSubscription = this.saveSubject.pipe(
@@ -64,10 +81,18 @@ export class TripNoteEditorComponent {
   }
 
   onContentChange(): void {
+    if(!this.tripTitle){
+      return;
+    }
     const updatedTrip = {
       ...this.trip,
       title: this.tripTitle,
-      note: this.noteContent
+      note: this.noteContent,
+      map: {
+        markers: this.markers,
+      },
+      dateFrom: formatDate(this.dateFrom, 'yyyy-MM-dd', 'en'),
+      dateTo: formatDate(this.dateTo, 'yyyy-MM-dd', 'en'),
     };
     this.saveSubject.next(updatedTrip);
   }
@@ -90,4 +115,74 @@ export class TripNoteEditorComponent {
       ['link', 'image', 'video']
     ]
   };
+
+  private setGoogleMapsMarkers(trip: Trip): void {
+    const tripMarkers = trip.map?.markers ?? [];
+    this.markers = [...tripMarkers];
+    navigator.geolocation.getCurrentPosition((position) => {
+      const currentLocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+      if(this.markers.length === 0) {
+        this.markers.push(currentLocation);
+      }
+      if (this.markers.length === 1) {
+        this.center = currentLocation;
+        this.zoom = 10;
+        console.log(tripMarkers);
+        console.log(this.markers);
+      } else {
+        this.bounds = new google.maps.LatLngBounds();
+        this.markers.forEach(marker =>
+          this.bounds.extend(new google.maps.LatLng(marker.lat, marker.lng))
+        );
+        if (this.map) {
+          this.map.fitBounds(this.bounds);
+          this.correctZoom();
+        }
+      }
+    });
+  }
+
+  private correctZoom(): void {
+    google.maps.event.addListenerOnce(this.map, 'bounds_changed', () => {
+      if (this.map.getZoom()! > 14) {
+        this.map.setZoom(14);
+      }
+    });
+  }
+  addMarker(event: google.maps.MapMouseEvent): void {
+    if (event.latLng) {
+      const lat = event.latLng.lat();
+      const lng = event.latLng.lng();
+
+      this.markers.push({ lat, lng });
+      this.onContentChange();
+    }
+  }
+
+  onMapInitialized(mapInstance: google.maps.Map): void {
+    this.map = mapInstance;
+
+    if (this.bounds) {
+      this.map.fitBounds(this.bounds);
+      this.correctZoom();
+    }
+  }
+
+  removeMarker(i: number): void {
+    this.markers.splice(i, 1);
+    this.onContentChange();
+  }
+
+  onDateChange(): void {
+    const tomorrow = this.dateFrom.getDate()+1;
+    const afterTomorrow = this.dateTo.getDate()+1;
+
+    this.trip.dateFrom = formatDate(this.dateFrom, 'yyyy-MM-dd', 'en');
+    this.trip.dateTo = formatDate(this.dateTo, 'yyyy-MM-dd', 'en');
+
+    this.onContentChange();
+  }
 }

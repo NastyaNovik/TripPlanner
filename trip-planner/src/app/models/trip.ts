@@ -1,4 +1,5 @@
 import {Season} from '../enums/season.enum';
+import {GoogleMap} from './map';
 
 export interface Trip {
   id: string;
@@ -8,4 +9,5 @@ export interface Trip {
   imageUrl?: string;
   season: Season;
   note: string;
+  map: GoogleMap;
 }

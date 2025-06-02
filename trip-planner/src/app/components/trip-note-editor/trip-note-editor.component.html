@@ -1,10 +1,38 @@
 <div class="wrapper">
-  <input
-    class="trip_title_input"
-    [(ngModel)]="tripTitle"
-    (ngModelChange)="onContentChange()"
-    placeholder="Title"
-  />
+  <div class="trip-header">
+    <input
+      class="trip_title_input"
+      [(ngModel)]="tripTitle"
+      (ngModelChange)="onContentChange()"
+      required
+      placeholder="Title"/>
+
+    <mat-form-field>
+      <mat-label>Date From</mat-label>
+      <input
+        matInput
+        [(ngModel)]="dateFrom"
+        [matDatepicker]="startPicker"
+        (ngModelChange)="onDateChange()"
+        name="startDate"
+      />
+      <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker #startPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Date To</mat-label>
+      <input
+        matInput
+        [(ngModel)]="dateTo"
+        [matDatepicker]="endPicker"
+        (ngModelChange)="onDateChange()"
+        name="endDate"
+      />
+      <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker></mat-datepicker>
+    </mat-form-field>
+  </div>
   <div class="note_map">
     <div class="note">
       <div class="note_title">Notes</div>
@@ -16,7 +44,15 @@
       </quill-editor>
     </div>
     <div class="map">
-
+      <google-map
+        height="100%"
+        width="100%"
+        [center]="center"
+        [zoom]="zoom"
+        (mapClick)="addMarker($event)"
+        (mapInitialized)="onMapInitialized($event)">
+        <map-marker *ngFor="let marker of markers; index as i" [position]="marker" (mapClick)="removeMarker(i)"></map-marker>
+      </google-map>
     </div>
   </div>
 </div>

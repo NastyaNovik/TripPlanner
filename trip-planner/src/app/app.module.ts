@@ -16,6 +16,11 @@ import { FormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import { ConfirmDialogComponent } from './components/shared/confirm-dialog/confirm-dialog.component';
 import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatDatepicker, MatDatepickerModule, MatDatepickerToggle } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -42,10 +47,13 @@ import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } fr
     MatDialogActions,
     MatDialogClose,
     MatDialogContent,
-    MatDialogTitle
+    MatDialogTitle,
+    GoogleMapsModule,
+    MatFormFieldModule, MatInputModule, MatDatepickerModule, MatDatepickerToggle, MatDatepicker
   ],
   providers: [
-    provideHttpClient(withInterceptorsFromDi())
+    provideHttpClient(withInterceptorsFromDi()),
+    provideNativeDateAdapter()
   ],
   bootstrap: [AppComponent]
 })

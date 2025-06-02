@@ -76,8 +76,6 @@ export class TripService {
       ? Math.max(...savedTrips.map((t: Trip) => t.id || 0))
       : 0;
     trip.id = (maxId + 1).toString();
-    trip.dateFrom = "2026-04-08";
-    trip.dateTo = "2026-05-09";
     const updatedTrips = [...savedTrips, trip];
     localStorage.setItem(this.cacheTripKey, JSON.stringify(updatedTrips));
     return this.http.post<Trip>(`${this.apiUrl}`, trip);

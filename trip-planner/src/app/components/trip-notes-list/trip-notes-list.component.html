@@ -44,7 +44,7 @@
       </div>
     </div>
     <div class="trip_cards">
-      <app-trip-card *ngFor="let trip of filteredPastTrips" [trip]="trip"></app-trip-card>
+      <app-trip-card *ngFor="let trip of filteredPastTrips" [trip]="trip" (onDelete) = "onTripDeleted($event)"></app-trip-card>
     </div>
   </div>
 </div>

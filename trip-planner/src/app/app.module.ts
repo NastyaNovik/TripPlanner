@@ -21,6 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepicker, MatDatepickerModule, MatDatepickerToggle } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
+import { MatTab, MatTabGroup, MatTabLabel } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,7 @@ import { MatInputModule } from '@angular/material/input';
     MatDialogContent,
     MatDialogTitle,
     GoogleMapsModule,
-    MatFormFieldModule, MatInputModule, MatDatepickerModule, MatDatepickerToggle, MatDatepicker
+    MatFormFieldModule, MatInputModule, MatDatepickerModule, MatDatepickerToggle, MatDatepicker, MatTabGroup, MatTab, MatTabLabel
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi()),

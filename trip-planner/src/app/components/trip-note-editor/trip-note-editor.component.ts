@@ -177,9 +177,6 @@ export class TripNoteEditorComponent {
   }
 
   onDateChange(): void {
-    const tomorrow = this.dateFrom.getDate()+1;
-    const afterTomorrow = this.dateTo.getDate()+1;
-
     this.trip.dateFrom = formatDate(this.dateFrom, 'yyyy-MM-dd', 'en');
     this.trip.dateTo = formatDate(this.dateTo, 'yyyy-MM-dd', 'en');
 

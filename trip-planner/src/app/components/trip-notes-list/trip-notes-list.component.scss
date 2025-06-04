@@ -6,95 +6,105 @@
   flex-direction: column;
 }
 
-.trip_section {
+.section_header {
+  margin: 1% 1% 2%;
+  display: flex;
+  justify-content: center;
+
+  .header{
+    align-content: center;
+  }
+
+  mat-icon {
+    font-size: 1.7rem;
+  }
+
+  .button_container {
+    display: flex;
+    width: 80%;
+    gap: 10%;
+    justify-content: center;
+    align-self: center;
+
+    .sort_button {
+      background: linear-gradient(135deg, #edf2fb, #dbe7f3);
+    }
+
+    mat-button-toggle-group {
+      display: flex;
+      flex-wrap: wrap;
+      box-shadow: 0 3px 4px 0 rgba(0,0,0,0.14);
+      border: 2px solid #e0e0e0;
+    }
+
+    mat-button-toggle {
+      min-width: 100px;
+      padding: 0 16px;
+      background-color: #d6efff;
+    }
+
+    .season_toggle {
+      padding: 8px 16px;
+      border: none;
+      cursor: pointer;
+      color: #2b2b2b;
+      transition: transform 0.2s ease, background 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+      &.all {
+        background-color: white;
+      }
+
+      &.winter {
+        background: linear-gradient(135deg, $winterFrom, $winterTo);
+      }
+
+      &.spring {
+        background: linear-gradient(135deg, $springFrom, $springTo);
+      }
+
+      &.summer {
+        background: linear-gradient(135deg, $summerFrom, $summerTo);
+      }
+
+      &.autumn {
+        background: linear-gradient(135deg, $autumnFrom, $autumnTo);
+      }
+    }
+  }
+}
+
+.mat-mdc-tab-group {
   width: 90%;
   margin: 1% auto;
   padding: 0.8% 1.5% 3%;
   border: 2px solid #e0e0e0;
   border-radius: 16px;
-  background-color: #ffffff;
 
-  &.past {
-    background-color: #f9f9f9;
+  ::ng-deep .mat-mdc-tab {
+    background-color: #f8f9fa;
+    border-radius: 12px 12px 0 0;
   }
 
-  .section_header {
-    margin: 1% 1% 2%;
+  ::ng-deep.mat-mdc-tab-header{
+    margin-bottom: 3%;
+  }
+
+  ::ng-deep.mdc-tab__text-label{
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: #888888;
     font-size: 18px;
-    display: flex;
-
-    .header{
-      align-content: center;
-    }
-
-    mat-icon {
-      font-size: 1.7rem;
-    }
-
-    .button_container {
-      display: flex;
-      width: 80%;
-      gap: 10%;
-      justify-content: center;
-      align-self: center;
-
-      .sort_button {
-        background: linear-gradient(135deg, #edf2fb, #dbe7f3);
-      }
-
-      mat-button-toggle-group {
-        display: flex;
-        flex-wrap: wrap;
-        box-shadow: 0 3px 4px 0 rgba(0,0,0,0.14);
-        border: 2px solid #e0e0e0;
-      }
-
-      mat-button-toggle {
-        min-width: 100px;
-        padding: 0 16px;
-        background-color: #d6efff;
-      }
-
-      .season_toggle {
-        padding: 8px 16px;
-        border: none;
-        cursor: pointer;
-        color: #2b2b2b;
-        transition: transform 0.2s ease, background 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-
-        &.all {
-          background-color: white;
-        }
-
-        &.winter {
-          background: linear-gradient(135deg, $winterFrom, $winterTo);
-        }
-
-        &.spring {
-          background: linear-gradient(135deg, $springFrom, $springTo);
-        }
-
-        &.summer {
-          background: linear-gradient(135deg, $summerFrom, $summerTo);
-        }
-
-        &.autumn {
-          background: linear-gradient(135deg, $autumnFrom, $autumnTo);
-        }
-      }
-    }
   }
 
-  .section_divider {
-    height: 2px;
-    background: linear-gradient(to right, #cccccc 0%, #eeeeee 50%, #cccccc 100%);
-    margin: 2rem auto;
-    width: 60%;
-    border-radius: 1px;
+  ::ng-deep .mat-mdc-tab.mdc-tab--active {
+    border: 2px solid #d0dff5;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #e0f7fa, #f1fafe);
+  }
+
+  ::ng-deep .mat-mdc-tab .mdc-tab-indicator__content--underline {
+    display: none;
   }
 
   .trip_cards {
@@ -102,5 +112,6 @@
     flex-wrap: wrap;
     gap: 1.5rem;
     justify-content: center;
+    margin-bottom: 1%;
   }
 }

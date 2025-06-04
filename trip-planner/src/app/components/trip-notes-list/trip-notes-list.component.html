@@ -1,50 +1,40 @@
 <div class="wrapper">
-  <div class="trip_section upcoming">
-    <div class="section_header">
-      <div class="header">
-        <span>{{ tripSection.Upcoming }}</span>
+  <div class="section_header">
+    <div class="button_container">
+      <button class="sort_button" mat-fab extended (click)="onSortClick()">
+        {{ currentTabIndex === 0 ? upcomingSortLabel : pastSortLabel }}
+        <mat-icon>{{ currentTabIndex === 0 ? upcomingSortIcon : pastSortIcon }}</mat-icon>
+      </button>
+      <mat-button-toggle-group [(ngModel)]="currentSelectedSeason" (change)="onSeasonChange()">
+        <mat-button-toggle class="season_toggle all" [value]="season.All">All</mat-button-toggle>
+        <mat-button-toggle class="season_toggle winter" [value]="season.Winter">Winter</mat-button-toggle>
+        <mat-button-toggle class="season_toggle spring" [value]="season.Spring">Spring</mat-button-toggle>
+        <mat-button-toggle class="season_toggle summer" [value]="season.Summer">Summer</mat-button-toggle>
+        <mat-button-toggle class="season_toggle autumn" [value]="season.Autumn">Autumn</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+
+  <mat-tab-group [(selectedIndex)]="currentTabIndex" (selectedIndexChange)="onTabChange($event)">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <span>Upcoming</span>
         <mat-icon style="color: orange;">whatshot</mat-icon>
+      </ng-template>
+      <div class="trip_cards">
+        <app-trip-card *ngFor="let trip of filteredUpcomingTrips"
+                       [trip]="trip"
+                       (onDelete)="onTripDeleted($event)">
+        </app-trip-card>
       </div>
-      <div class="button_container">
-        <button class="sort_button" mat-fab extended (click)="upcomingSorting()"> {{ upcomingSortLabel }}
-          <mat-icon>{{ upcomingSortIcon }}</mat-icon>
-        </button>
-        <mat-button-toggle-group [(ngModel)]="selectedUpcomingSeason" (change)="onSeasonChange()">
-          <mat-button-toggle class="season_toggle all" [value] = season.All>All</mat-button-toggle>
-          <mat-button-toggle class="season_toggle winter" [value] = "season.Winter">Winter</mat-button-toggle>
-          <mat-button-toggle class="season_toggle spring" [value] = "season.Spring">Spring</mat-button-toggle>
-          <mat-button-toggle class="season_toggle summer" [value] = "season.Summer">Summer</mat-button-toggle>
-          <mat-button-toggle class="season_toggle autumn" [value] = "season.Autumn">Autumn</mat-button-toggle>
-        </mat-button-toggle-group>
+    </mat-tab>
+    <mat-tab label="Past">
+      <div class="trip_cards">
+        <app-trip-card *ngFor="let trip of filteredPastTrips"
+                       [trip]="trip"
+                       (onDelete)="onTripDeleted($event)">
+        </app-trip-card>
       </div>
-    </div>
-    <div class="trip_cards">
-      <app-trip-card *ngFor="let trip of filteredUpcomingTrips" [trip]="trip" (onDelete) = "onTripDeleted($event)"></app-trip-card>
-    </div>
-  </div>
-
-  <div class="section_divider"></div>
-
-  <div class="trip_section past">
-    <div class="section_header">
-      <div class="header">
-        <span>{{ tripSection.Past}}</span>
-      </div>
-      <div class="button_container">
-        <button class="sort_button" mat-fab extended (click)="pastSorting()"> {{ pastSortLabel }}
-          <mat-icon>{{ pastSortIcon }}</mat-icon>
-        </button>
-        <mat-button-toggle-group [(ngModel)]="selectedPastSeason" (change)="onSeasonChange()">
-          <mat-button-toggle class="season_toggle all" [value] = season.All>All</mat-button-toggle>
-          <mat-button-toggle class="season_toggle winter" [value] = "season.Winter">Winter</mat-button-toggle>
-          <mat-button-toggle class="season_toggle spring" [value] = "season.Spring">Spring</mat-button-toggle>
-          <mat-button-toggle class="season_toggle summer" [value] = "season.Summer">Summer</mat-button-toggle>
-          <mat-button-toggle class="season_toggle autumn" [value] = "season.Autumn">Autumn</mat-button-toggle>
-        </mat-button-toggle-group>
-      </div>
-    </div>
-    <div class="trip_cards">
-      <app-trip-card *ngFor="let trip of filteredPastTrips" [trip]="trip" (onDelete) = "onTripDeleted($event)"></app-trip-card>
-    </div>
-  </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>

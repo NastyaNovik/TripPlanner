@@ -9,6 +9,14 @@
   width: 100%;
 }
 
+.checklist_calculation {
+  display: flex;
+  gap: 2%;
+  width: 100%;
+  margin: 2% 0;
+  padding-bottom: 3%;
+}
+
 .trip-header {
   display: flex;
   align-items: center;
@@ -85,6 +93,64 @@
   flex: 1 1 50%;
   width: 50%;
   border-radius: 12px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.checklist{
+  background-color: #fffff7;
+  flex: 1 1 50%;
+  width: 50%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  box-sizing: border-box;
+
+  .tasks{
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    margin-bottom: 2%;
+    color: #888888;
+  }
+
+  .task_list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .task_item {
+    display: flex;
+    align-items: center;
+    gap: 1%;
+    background: #f5f5f5;
+    padding: 6px 10px;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+
+  .task_input {
+    flex: 1;
+    border-radius: 5px;
+    border: 2px solid #e0e0e0;
+    height: 3vh;
+  }
+
+  ::ng-deep .checkbox.mat-mdc-checkbox-checked .mdc-checkbox__background{
+    border-radius: 50% !important;
+    background-color: #4caf50 !important;
+    border: 2px solid #4caf50 !important;
+  }
+}
+
+.calculation_table{
+  background-color: #fffff7;
+  flex: 1 1 50%;
+  width: 50%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 16px;
   box-sizing: border-box;
 }

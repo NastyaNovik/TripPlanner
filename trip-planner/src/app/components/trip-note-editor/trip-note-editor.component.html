@@ -51,8 +51,34 @@
         [zoom]="zoom"
         (mapClick)="addMarker($event)"
         (mapInitialized)="onMapInitialized($event)">
-        <map-marker *ngFor="let marker of markers; index as i" [position]="marker" (mapClick)="removeMarker(i)"></map-marker>
+        <map-directions-renderer *ngIf="directionsResults" [directions]="directionsResults" [options]="directionsRenderOption" />
+        <map-marker *ngFor="let marker of markers; index as i" [position]="marker" (mapClick)="removeMarker(i)"  [label]="(i+1).toString()"></map-marker>
       </google-map>
     </div>
+  </div>
+  <div class="checklist_calculation">
+    <div class="checklist">
+      <div class="tasks">Tasks
+        <button mat-icon-button color="primary" (click)="addTask()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div cdkDropList (cdkDropListDropped)="drop($event)" class="task_list">
+        <div class="task_item" *ngFor="let task of checkList; index as i" cdkDrag>
+          <mat-checkbox [(ngModel)]="task.completed" (change)="onContentChange()" class="checkbox"></mat-checkbox>
+          <input
+            matInput
+            [(ngModel)]="task.task"
+            [readonly]="task.completed"
+            (ngModelChange)="onContentChange()"
+            placeholder="Task..."
+            class="task_input"/>
+          <button mat-icon-button color="warn" (click)="removeTask(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="calculation_table"></div>
   </div>
 </div>

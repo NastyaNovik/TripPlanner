@@ -1,9 +1,13 @@
 import {Component} from '@angular/core';
 import {Trip} from '../../models/trip';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {TripService} from '../../services/trip.service';
 import {debounceTime, distinctUntilChanged, Subject, Subscription} from 'rxjs';
 import {formatDate} from '@angular/common';
+import {MapDirectionsService} from '@angular/google-maps';
+import { map } from 'rxjs/operators';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {CheckList} from '../../models/check-list';
 
 @Component({
   selector: 'app-trip-note-editor',
@@ -24,27 +28,19 @@ export class TripNoteEditorComponent {
   map!: google.maps.Map;
   dateFrom!: Date;
   dateTo!: Date;
+  directionsResults!: google.maps.DirectionsResult | undefined;
+  directionsRenderOption!: google.maps.DirectionsRendererOptions
+  checkList: CheckList[] = [];
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
-    private tripService: TripService
+    private tripService: TripService,
+    private directionsService: MapDirectionsService
   ) {}
 
   ngOnInit(): void {
-    const nav = this.router.getCurrentNavigation();
-    const tripFromState = nav?.extras.state?.['trip'];
     const id = Number(this.route.snapshot.paramMap.get('id'));
-
-    if (tripFromState) {
-      this.trip = tripFromState;
-      this.tripTitle = tripFromState.title || '';
-      this.noteContent = tripFromState.note || '';
-      this.setGoogleMapsMarkers(this.trip);
-      this.dateFrom = new Date(this.trip.dateFrom);
-      this.dateTo = new Date(this.trip.dateTo);
-    }
-    else if (id) {
+    if (id) {
       this.tripService.getTripById(id).subscribe(trip => {
         this.trip = trip;
         this.tripTitle = trip.title || '';
@@ -52,6 +48,7 @@ export class TripNoteEditorComponent {
         this.setGoogleMapsMarkers(this.trip);
         this.dateFrom = new Date(this.trip.dateFrom);
         this.dateTo = new Date(this.trip.dateTo);
+        this.checkList = this.trip.checkList || [];
       });
     }
     else {
@@ -74,6 +71,24 @@ export class TripNoteEditorComponent {
     ).subscribe(tripToSave => {
       this.tripService.saveTrip(tripToSave).subscribe(savedTrip => {this.trip = savedTrip;});
     });
+
+    this.directionsRenderOption = {
+      suppressMarkers:true,
+      suppressInfoWindows:true,
+      polylineOptions:{
+        strokeColor: '#6d8dbd',
+        strokeOpacity: 0,
+        icons: [{
+          icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            fillOpacity: 1,
+            scale: 3
+          },
+          offset: '0',
+          repeat: '1px'
+        }],
+      }
+    }
   }
 
   ngOnDestroy(): void {
@@ -93,6 +108,7 @@ export class TripNoteEditorComponent {
       },
       dateFrom: formatDate(this.dateFrom, 'yyyy-MM-dd', 'en'),
       dateTo: formatDate(this.dateTo, 'yyyy-MM-dd', 'en'),
+      checkList: this.checkList,
     };
     this.saveSubject.next(updatedTrip);
   }
@@ -143,6 +159,31 @@ export class TripNoteEditorComponent {
         }
       }
     });
+    this.updateRoute();
+  }
+
+  private updateRoute(): void {
+    if (this.markers.length < 2) return;
+
+    const waypoints = this.markers.slice(1, -1).map(position => ({
+      location: position,
+      stopover: true
+    }));
+
+    const request: google.maps.DirectionsRequest = {
+      origin: this.markers[0],
+      destination: this.markers[this.markers.length - 1],
+      waypoints,
+      travelMode: google.maps.TravelMode.DRIVING
+    };
+
+    this.directionsService.route(request).pipe(
+      map(res => res.result)
+    ).subscribe(directions => {
+      this.directionsResults = directions;
+    });
+
+
   }
 
   private correctZoom(): void {
@@ -158,7 +199,9 @@ export class TripNoteEditorComponent {
       const lng = event.latLng.lng();
 
       this.markers.push({ lat, lng });
+      this.updateRoute();
       this.onContentChange();
+      this.onMapInitialized(this.map);
     }
   }
 
@@ -173,13 +216,29 @@ export class TripNoteEditorComponent {
 
   removeMarker(i: number): void {
     this.markers.splice(i, 1);
+    this.updateRoute();
     this.onContentChange();
+    this.onMapInitialized(this.map);
   }
 
   onDateChange(): void {
     this.trip.dateFrom = formatDate(this.dateFrom, 'yyyy-MM-dd', 'en');
     this.trip.dateTo = formatDate(this.dateTo, 'yyyy-MM-dd', 'en');
 
+    this.onContentChange();
+  }
+
+  addTask(): void {
+    this.checkList.push({ task: '', completed: false });
+  }
+
+  removeTask(index: number): void {
+    this.checkList.splice(index, 1);
+    this.onContentChange();
+  }
+
+  drop(event: CdkDragDrop<any[]>): void {
+    moveItemInArray(this.checkList, event.previousIndex, event.currentIndex);
     this.onContentChange();
   }
 }

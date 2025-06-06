@@ -22,6 +22,8 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepicker, MatDatepickerModule, MatDatepickerToggle } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatTab, MatTabGroup, MatTabLabel } from '@angular/material/tabs';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,17 @@ import { MatTab, MatTabGroup, MatTabLabel } from '@angular/material/tabs';
     MatDialogContent,
     MatDialogTitle,
     GoogleMapsModule,
-    MatFormFieldModule, MatInputModule, MatDatepickerModule, MatDatepickerToggle, MatDatepicker, MatTabGroup, MatTab, MatTabLabel
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatDatepickerToggle,
+    MatDatepicker,
+    MatTabGroup,
+    MatTab,
+    MatTabLabel,
+    MatCheckbox,
+    CdkDropList,
+    CdkDrag
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi()),

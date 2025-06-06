@@ -1,8 +1,8 @@
-<div class="wrapper">
-  <div class="trip-header">
+<div class="wrapper" *ngIf="trip">
+  <div class="trip_header">
     <input
       class="trip_title_input"
-      [(ngModel)]="tripTitle"
+      [(ngModel)]="trip.title"
       (ngModelChange)="onContentChange()"
       required
       placeholder="Title"/>
@@ -11,7 +11,7 @@
       <mat-label>Date From</mat-label>
       <input
         matInput
-        [(ngModel)]="dateFrom"
+        [(ngModel)]="trip.dateFrom"
         [matDatepicker]="startPicker"
         (ngModelChange)="onDateChange()"
         name="startDate"
@@ -24,7 +24,7 @@
       <mat-label>Date To</mat-label>
       <input
         matInput
-        [(ngModel)]="dateTo"
+        [(ngModel)]="trip.dateTo"
         [matDatepicker]="endPicker"
         (ngModelChange)="onDateChange()"
         name="endDate"
@@ -37,7 +37,7 @@
     <div class="note">
       <div class="note_title">Notes</div>
       <quill-editor
-        [(ngModel)]="noteContent"
+        [(ngModel)]="trip.note"
         (ngModelChange)="onContentChange()"
         [modules]="quillModules"
         placeholder="Write down some notes on travel plans here...">
@@ -64,7 +64,7 @@
         </button>
       </div>
       <div cdkDropList (cdkDropListDropped)="drop($event)" class="task_list">
-        <div class="task_item" *ngFor="let task of checkList; index as i" cdkDrag>
+        <div class="task_item" *ngFor="let task of trip.checkList; index as i" cdkDrag>
           <mat-checkbox [(ngModel)]="task.completed" (change)="onContentChange()" class="checkbox"></mat-checkbox>
           <input
             matInput

@@ -51,7 +51,7 @@ export class TripCardComponent {
   onDeleteTrip(): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: this.dialogMessage,
-      panelClass: 'custom-confirm-dialog',
+      panelClass: 'custom_confirm_dialog',
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

@@ -142,6 +142,8 @@ export class TripNotesListComponent implements OnInit {
   onTripDeleted(deletedId: string): void {
     this.filteredUpcomingTrips = this.filteredUpcomingTrips.filter(trip => trip.id !== deletedId);
     this.filteredPastTrips = this.filteredPastTrips.filter(trip => trip.id !== deletedId);
+    this.upcomingTrips = this.upcomingTrips.filter(trip => trip.id !== deletedId);
+    this.pastTrips = this.pastTrips.filter(trip => trip.id !== deletedId);
   }
 
   get currentSelectedSeason(): Season {

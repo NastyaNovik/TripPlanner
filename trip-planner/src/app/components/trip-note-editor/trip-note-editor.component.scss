@@ -24,21 +24,24 @@
   margin-bottom: 1rem;
 }
 
-::ng-deep .mat-mdc-form-field-flex {
-  border-radius: 16px !important;
-  padding: 1% 5% !important;
-  background-color: #fae8c3 !important;
-}
-
-::ng-deep .mat-mdc-text-field-wrapper {
-  border-radius: 16px !important;
-  background-color: #ccbd9f !important;
-}
-
-.trip_title {
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #888888;
+::ng-deep .date_picker {
+  .mat-mdc-form-field-flex {
+    border-radius: 16px !important;
+    padding: 1% 5% !important;
+    background-color: #fae8c3 !important;
+  }
+  .mat-mdc-text-field-wrapper {
+    border-radius: 16px !important;
+    background-color: #ccbd9f !important;
+  }
+  .mat-datepicker-input {
+    &.invalid {
+      color: red !important;
+      border: 1px solid red !important;
+      border-radius: 4px !important;
+      box-shadow: 0 0 4px 2px rgba(255, 0, 0, 0.2);
+    }
+  }
 }
 
 .trip_title_input {
@@ -50,6 +53,10 @@
   width: 100%;
   max-width: 600px;
   margin: 2% 0 3%;
+
+  &.invalid {
+    border: 2px solid #cc3412;
+  }
 }
 
 .note {
@@ -97,7 +104,8 @@
   box-sizing: border-box;
 }
 
-.checklist{
+.checklist,
+.calculation_table{
   background-color: #fffff7;
   flex: 1 1 50%;
   width: 50%;
@@ -131,11 +139,60 @@
     cursor: pointer;
   }
 
-  .task_input {
+  .mat-mdc-table{
+    background-color: transparent;
+  }
+
+  .mat-mdc-paginator{
+    background-color: transparent;
+  }
+
+  .col_description {
+    width: 60%;
+    max-width: 60%;
+  }
+
+  .col_amount {
+    width: 15%;
+    max-width: 15%;
+    text-align: center;
+  }
+
+  .col_currency {
+    width: 15%;
+    max-width: 15%;
+    text-align: center;
+  }
+
+  .col_delete {
+    width: 10%;
+    max-width: 10%;
+    text-align: center;
+  }
+
+  .total_row {
+    background-color: #f5e9d4;
+    font-weight: bold;
+    text-align: right;
+
+    &.currency{
+      text-align: center;
+    }
+  }
+
+  .table_input {
     flex: 1;
     border-radius: 5px;
     border: 2px solid #e0e0e0;
     height: 3vh;
+
+    &.description{
+      width: 90%;
+    }
+
+    &.amount{
+      width: 80%;
+    }
   }
 
   ::ng-deep .checkbox.mat-mdc-checkbox-checked .mdc-checkbox__background{

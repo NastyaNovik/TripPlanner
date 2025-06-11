@@ -1,13 +1,19 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {Trip} from '../../models/trip';
 import {ActivatedRoute} from '@angular/router';
 import {TripService} from '../../services/trip.service';
 import {debounceTime, distinctUntilChanged, Subject, Subscription} from 'rxjs';
 import {formatDate} from '@angular/common';
 import {MapDirectionsService} from '@angular/google-maps';
-import { map } from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {quillModules} from './quill-config';
+import {CurrencyType} from '../../enums/currency';
+import {MatTableDataSource} from '@angular/material/table';
+import {Expense} from '../../models/expense';
+import {MatPaginator} from '@angular/material/paginator';
+import {CurrencyService} from '../../services/currency.service';
+import {FormArray, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-trip-note-editor',
@@ -25,12 +31,22 @@ export class TripNoteEditorComponent {
   bounds!: google.maps.LatLngBounds;
   map!: google.maps.Map;
   directionsResults!: google.maps.DirectionsResult | undefined;
-  directionsRenderOption!: google.maps.DirectionsRendererOptions
+  directionsRenderOption!: google.maps.DirectionsRendererOptions;
+  dataSource:MatTableDataSource<FormGroup>=new MatTableDataSource<FormGroup>()
+  currencies = [CurrencyType.PLN, CurrencyType.USD, CurrencyType.EUR];
+  displayedColumns = ['description', 'amount', 'currency', 'actions'];
+  selectedCurrency = CurrencyType.PLN;
+  convertedTotal = 0;
+  formArray: FormArray<FormGroup> = new FormArray<FormGroup>([]);
+  isTitleInvalid = false;
+  isDateRangeInvalid = false;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private route: ActivatedRoute,
     private tripService: TripService,
-    private directionsService: MapDirectionsService
+    private directionsService: MapDirectionsService,
+    private currencyService: CurrencyService,
   ) {}
 
   ngOnInit(): void {
@@ -47,7 +63,8 @@ export class TripNoteEditorComponent {
         id: '',
         dateFrom: tomorrow,
         dateTo: afterTomorrow,
-        checkList: []
+        checkList: [],
+        expenses: [],
       } as unknown as Trip;
       this.setGoogleMapsMarkers(this.trip);
     }
@@ -60,6 +77,38 @@ export class TripNoteEditorComponent {
     });
 
     this.directionsRenderOption = this.getDirectionsRenderOptions();
+    this.currencyService.fetchRates(CurrencyType.PLN).subscribe();
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.formArray=new FormArray(this.trip.expenses.map(expense => this.getFormGroup(expense)));
+      this.dataSource=new MatTableDataSource(this.formArray.controls)
+      this.dataSource.paginator = this.paginator;
+      this.calculateTotal();
+    }, 500);
+  }
+
+  getFormGroup(data:Expense): FormGroup
+  {
+    const fg = new FormGroup({
+      description:new FormControl(data.description),
+      amount:new FormControl(data.amount),
+      currency:new FormControl(data.currency),
+    })
+    fg.valueChanges.subscribe(val => {
+      const index = this.formArray.controls.indexOf(fg);
+      if (index > -1) {
+        this.trip.expenses[index] = {
+          description: val.description ?? '',
+          amount: val.amount ?? 0,
+          currency: val.currency ?? CurrencyType.PLN,
+        };
+        this.onContentChange();
+      }
+    });
+
+    return fg;
   }
 
   ngOnDestroy(): void {
@@ -67,7 +116,8 @@ export class TripNoteEditorComponent {
   }
 
   onContentChange(): void {
-    if(!this.trip.title){
+    if(!this.trip?.title?.trim()){
+      this.isTitleInvalid = true;
       return;
     }
     const updatedTrip = {
@@ -80,7 +130,11 @@ export class TripNoteEditorComponent {
       dateFrom: formatDate(this.trip.dateFrom, 'yyyy-MM-dd', 'en'),
       dateTo: formatDate(this.trip.dateTo, 'yyyy-MM-dd', 'en'),
       checkList: this.trip.checkList,
+      expenses: this.trip.expenses,
     };
+    this.isTitleInvalid = false;
+    this.isDateRangeInvalid = false;
+    this.calculateTotal();
     this.saveSubject.next(updatedTrip);
   }
 
@@ -207,7 +261,10 @@ export class TripNoteEditorComponent {
     this.trip.dateFrom = formatDate(this.trip.dateFrom, 'yyyy-MM-dd', 'en');
     this.trip.dateTo = formatDate(this.trip.dateTo, 'yyyy-MM-dd', 'en');
 
-    this.onContentChange();
+    this.isDateRangeInvalid = this.trip.dateTo < this.trip.dateFrom;
+
+    if(!this.isDateRangeInvalid)
+      this.onContentChange();
   }
 
   addTask(): void {
@@ -222,5 +279,28 @@ export class TripNoteEditorComponent {
   drop(event: CdkDragDrop<any[]>): void {
     moveItemInArray(this.trip.checkList, event.previousIndex, event.currentIndex);
     this.onContentChange();
+  }
+
+  addExpense(): void {
+    const newExpense = this.getFormGroup({ description: '', amount: 0, currency: CurrencyType.PLN });
+    this.formArray.push(newExpense);
+    this.dataSource.data = this.formArray.controls;
+    this.trip.expenses.push({ description: '', amount: 0, currency: CurrencyType.PLN });
+  }
+
+  removeExpense(index: number): void {
+    this.trip.expenses.splice(index, 1);
+    this.formArray.removeAt(index);
+    this.dataSource.data = this.formArray.controls;
+    this.onContentChange();
+  }
+
+  calculateTotal(): void {
+    if (!this.trip?.expenses) return;
+
+    const total = this.trip.expenses.reduce((sum, exp) => {
+      return sum + this.currencyService.convert(exp.amount, exp.currency, this.selectedCurrency);
+    }, 0);
+    this.convertedTotal = Number(total.toFixed(2));
   }
 }

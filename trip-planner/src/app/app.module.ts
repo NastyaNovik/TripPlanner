@@ -12,18 +12,29 @@ import { MatIconModule } from '@angular/material/icon';
 import { TripCardComponent } from './components/trip-card/trip-card.component';
 import { MatButton, MatFabButton, MatIconButton } from '@angular/material/button';
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import { ConfirmDialogComponent } from './components/shared/confirm-dialog/confirm-dialog.component';
 import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { provideNativeDateAdapter } from '@angular/material/core';
+import {MatOption, provideNativeDateAdapter} from '@angular/material/core';
 import { MatDatepicker, MatDatepickerModule, MatDatepickerToggle } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatTab, MatTabGroup, MatTabLabel } from '@angular/material/tabs';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef, MatFooterCell, MatFooterCellDef, MatFooterRow, MatFooterRowDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatTable
+} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSelect} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -62,7 +73,25 @@ import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
     MatTabLabel,
     MatCheckbox,
     CdkDropList,
-    CdkDrag
+    CdkDrag,
+    MatTable,
+    MatHeaderCell,
+    MatColumnDef,
+    MatCell,
+    MatCellDef,
+    MatHeaderCellDef,
+    MatHeaderRow,
+    MatRow,
+    MatHeaderRowDef,
+    MatRowDef,
+    MatFooterCell,
+    MatFooterCellDef,
+    MatFooterRow,
+    MatFooterRowDef,
+    MatPaginator,
+    MatSelect,
+    MatOption,
+    ReactiveFormsModule
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi()),

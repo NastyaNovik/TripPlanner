@@ -13,7 +13,9 @@
             "lng": 17.0385
           }
         ]
-      }
+      },
+      "checkList": [],
+      "expenses": []
     },
     {
       "id": "2",
@@ -53,7 +55,9 @@
           }
         ]
       },
-      "note": "<p>Italy</p>"
+      "note": "<p>Italy</p>",
+      "checkList": [],
+      "expenses": []
     },
     {
       "id": "3",
@@ -68,7 +72,9 @@
             "lng": 17.0385
           }
         ]
-      }
+      },
+      "checkList": [],
+      "expenses": []
     },
     {
       "id": "4",
@@ -92,7 +98,9 @@
           }
         ]
       },
-      "note": ""
+      "note": "",
+      "checkList": [],
+      "expenses": []
     },
     {
       "id": "5",
@@ -116,7 +124,9 @@
           }
         ]
       },
-      "note": ""
+      "note": "",
+      "checkList": [],
+      "expenses": []
     },
     {
       "id": "6",
@@ -140,7 +150,9 @@
           }
         ]
       },
-      "note": ""
+      "note": "",
+      "checkList": [],
+      "expenses": []
     },
     {
       "id": "7",
@@ -155,7 +167,9 @@
             "lng": 21.047873176042046
           }
         ]
-      }
+      },
+      "checkList": [],
+      "expenses": []
     },
     {
       "id": "8",
@@ -191,7 +205,9 @@
           }
         ]
       },
-      "note": ""
+      "note": "",
+      "checkList": [],
+      "expenses": []
     },
     {
       "id": "9",
@@ -206,7 +222,9 @@
             "lng": 17.0385
           }
         ]
-      }
+      },
+      "checkList": [],
+      "expenses": []
     },
     {
       "id": "10",
@@ -226,7 +244,9 @@
           }
         ]
       },
-      "note": ""
+      "note": "",
+      "checkList": [],
+      "expenses": []
     },
     {
       "id": "11",
@@ -250,7 +270,9 @@
             "lng": 19.454914656750848
           }
         ]
-      }
+      },
+      "checkList": [],
+      "expenses": []
     },
     {
       "id": "16",
@@ -264,7 +286,9 @@
           }
         ]
       },
-      "imageUrl": "https://images.unsplash.com/photo-1748525591588-df78255585eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTI5MzF8MHwxfHNlYXJjaHwxfHxiZXclMjB0cmlwfGVufDB8fDJ8fDE3NDg4NjM1NDR8MA&ixlib=rb-4.1.0&q=80&w=1080"
+      "imageUrl": "https://images.unsplash.com/photo-1748525591588-df78255585eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTI5MzF8MHwxfHNlYXJjaHwxfHxiZXclMjB0cmlwfGVufDB8fDJ8fDE3NDg4NjM1NDR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "checkList": [],
+      "expenses": []
     },
     {
       "id": "17",
@@ -277,7 +301,9 @@
             "lng": 21.04757690111014
           }
         ]
-      }
+      },
+      "checkList": [],
+      "expenses": []
     },
     {
       "id": "18",
@@ -311,45 +337,69 @@
           "completed": true
         },
         {
-          "task": "1",
+          "task": "qweferv",
           "completed": false
         }
       ],
-      "imageUrl": "https://images.unsplash.com/photo-1749074536771-a21868729dc8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTI5MzF8MHwxfHNlYXJjaHwxfHxiZWxhcnVzfGVufDB8fDJ8fDE3NDkxMzYzOTd8MA&ixlib=rb-4.1.0&q=80&w=1080"
+      "imageUrl": "https://images.unsplash.com/photo-1749035004532-027906d35359?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTI5MzF8MHwxfHNlYXJjaHwxfHxiZWxhcnVzfGVufDB8fDJ8fDE3NDkzOTc2OTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "expenses": [
+        {
+          "description": "tyrty",
+          "amount": 200,
+          "currency": "PLN"
+        },
+        {
+          "description": "tickets",
+          "amount": 300,
+          "currency": "PLN"
+        }
+      ]
     },
     {
-      "id": "19",
-      "dateFrom": "2025-07-31",
-      "dateTo": "2025-08-30",
+      "id": "20",
+      "dateFrom": "2025-07-26",
+      "dateTo": "2025-07-31",
       "checkList": [
         {
-          "task": "wwwwwww",
+          "task": "3",
+          "completed": false
+        },
+        {
+          "task": "1",
           "completed": true
         },
         {
-          "task": "c",
-          "completed": true
+          "task": "2",
+          "completed": false
         }
       ],
-      "title": "test",
+      "expenses": [
+        {
+          "description": "tickets",
+          "amount": 100,
+          "currency": "PLN"
+        },
+        {
+          "description": "hotel",
+          "amount": 200,
+          "currency": "USD"
+        }
+      ],
+      "note": "<p>пвапв</p>",
+      "title": "new trip",
       "map": {
         "markers": [
           {
-            "lat": 52.26946111465243,
-            "lng": 21.04783869671932
+            "lat": 52.26948325228845,
+            "lng": 21.04776880713063
           },
           {
-            "lat": 52.11462002185058,
-            "lng": 19.840088257075447
-          },
-          {
-            "lat": 51.797598132968254,
-            "lng": 20.934371334381137
+            "lat": 53.13436682348689,
+            "lng": 17.967563891910164
           }
         ]
       },
-      "imageUrl": "https://images.unsplash.com/photo-1748280933446-c9be297ec3be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTI5MzF8MHwxfHNlYXJjaHwxfHx0ZXN0fGVufDB8fDJ8fDE3NDkyMzgwNzZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "note": "<p>some&nbsp;notes</p>"
+      "imageUrl": "https://images.unsplash.com/photo-1749542498351-1204fc30ce01?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTI5MzF8MHwxfHNlYXJjaHwxfHxuZXclMjB0cmlwfGVufDB8fDJ8fDE3NDk2MDQ1Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080"
     }
   ]
 }

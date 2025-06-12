@@ -7,34 +7,35 @@
       [class.invalid]="isTitleInvalid"
       required
       placeholder="Title"/>
+    <div class="date_pickers">
+      <mat-form-field class="date_picker">
+        <mat-label>Date From</mat-label>
+        <input
+          matInput
+          [(ngModel)]="trip.dateFrom"
+          [matDatepicker]="startPicker"
+          (ngModelChange)="onDateChange()"
+          name="startDate"
+        />
+        <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
+      </mat-form-field>
 
-    <mat-form-field class="date_picker">
-      <mat-label>Date From</mat-label>
-      <input
-        matInput
-        [(ngModel)]="trip.dateFrom"
-        [matDatepicker]="startPicker"
-        (ngModelChange)="onDateChange()"
-        name="startDate"
-      />
-      <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>
-      <mat-datepicker #startPicker></mat-datepicker>
-    </mat-form-field>
-
-    <mat-form-field class="date_picker" >
-      <mat-label>Date To</mat-label>
-      <input
-        matInput
-        [min] = "trip.dateFrom"
-        [(ngModel)]="trip.dateTo"
-        [ngClass]="{ 'invalid': isDateRangeInvalid }"
-        [matDatepicker]="endPicker"
-        (ngModelChange)="onDateChange()"
-        name="endDate"
-      />
-      <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>
-      <mat-datepicker #endPicker></mat-datepicker>
-    </mat-form-field>
+      <mat-form-field class="date_picker" >
+        <mat-label>Date To</mat-label>
+        <input
+          matInput
+          [min] = "trip.dateFrom"
+          [(ngModel)]="trip.dateTo"
+          [ngClass]="{ 'invalid': isDateRangeInvalid }"
+          [matDatepicker]="endPicker"
+          (ngModelChange)="onDateChange()"
+          name="endDate"
+        />
+        <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>
+        <mat-datepicker #endPicker></mat-datepicker>
+      </mat-form-field>
+    </div>
   </div>
   <div class="note_map">
     <div class="note">

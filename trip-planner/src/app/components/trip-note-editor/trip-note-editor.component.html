@@ -1,12 +1,17 @@
 <div class="wrapper" *ngIf="trip">
   <div class="trip_header">
-    <input
-      class="trip_title_input"
-      [(ngModel)]="trip.title"
-      (ngModelChange)="onContentChange()"
-      [class.invalid]="isTitleInvalid"
-      required
-      placeholder="Title"/>
+    <div class="title_input">
+      <input
+        class="trip_title_input"
+        [(ngModel)]="trip.title"
+        (ngModelChange)="onContentChange()"
+        [class.invalid]="isTitleInvalid"
+        required
+        placeholder="Title"/>
+      <span *ngIf="isTitleInvalid" class="error">
+        *Title is required
+      </span>
+    </div>
     <div class="date_pickers">
       <mat-form-field class="date_picker">
         <mat-label>Date From</mat-label>
@@ -112,7 +117,7 @@
           <th mat-header-cell *matHeaderCellDef class="col_currency"> Currency </th>
           <td mat-cell *matCellDef="let element" [formGroup]="element" class="col_currency">
             <mat-select  [formControl]="element.get('currency')">
-              <mat-option *ngFor="let c of currencies" [value]="c">{{c}}</mat-option>
+              <mat-option *ngFor="let currency of currencies" [value]="currency">{{currency}}</mat-option>
             </mat-select>
           </td>
           <td mat-footer-cell *matFooterCellDef class="total_row currency">

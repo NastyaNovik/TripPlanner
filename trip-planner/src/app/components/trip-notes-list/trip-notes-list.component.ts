@@ -24,7 +24,7 @@ export class TripNotesListComponent implements OnInit {
   sortOrder = SortOrder;
   sortOrderIcon = SortOrderIcon;
   sortLabel = SortLabel;
-  currentTabIndex: number = 0;
+  currentTabIndex = 0;
 
   constructor(private tripService: TripService) {}
 

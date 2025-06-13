@@ -4,7 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {TripService} from '../../services/trip.service';
 import {debounceTime, distinctUntilChanged, Subject, Subscription} from 'rxjs';
 import {formatDate} from '@angular/common';
-import {MapDirectionsService} from '@angular/google-maps';
+import {GoogleMap, MapDirectionsService} from '@angular/google-maps';
 import {map} from 'rxjs/operators';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {quillModules} from './quill-config';
@@ -41,6 +41,7 @@ export class TripNoteEditorComponent {
   isTitleInvalid = false;
   isDateRangeInvalid = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(GoogleMap) googleMap!: GoogleMap;
 
   constructor(
     private route: ActivatedRoute,
@@ -78,6 +79,17 @@ export class TripNoteEditorComponent {
 
     this.directionsRenderOption = this.getDirectionsRenderOptions();
     this.currencyService.fetchRates(CurrencyType.PLN).subscribe();
+    window.addEventListener('resize', this.onResize.bind(this));
+  }
+
+  private onResize(): void {
+    if (this.map && this.googleMap.googleMap) {
+      google.maps.event.trigger(this.googleMap.googleMap, 'resize');
+
+      if (this.bounds) {
+        this.googleMap.googleMap.fitBounds(this.bounds);
+      }
+    }
   }
 
   ngAfterViewInit(): void {
@@ -113,6 +125,7 @@ export class TripNoteEditorComponent {
 
   ngOnDestroy(): void {
     this.saveSubscription.unsubscribe();
+    window.removeEventListener('resize', this.onResize.bind(this));
   }
 
   onContentChange(): void {

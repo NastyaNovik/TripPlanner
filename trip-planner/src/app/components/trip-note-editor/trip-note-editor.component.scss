@@ -21,8 +21,8 @@
 .trip_header {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: 2%;
+  margin-bottom: 3%;
 }
 
 .date_pickers{
@@ -37,10 +37,16 @@
     padding: 1% 5% !important;
     background-color: #fae8c3 !important;
   }
+
   .mat-mdc-text-field-wrapper {
     border-radius: 16px !important;
     background-color: #ccbd9f !important;
+
+    .mdc-line-ripple::before, .mdc-line-ripple::after{
+      border-bottom-style: none !important;
+    }
   }
+
   .mat-datepicker-input {
     &.invalid {
       color: red !important;
@@ -48,6 +54,26 @@
       border-radius: 4px !important;
       box-shadow: 0 0 4px 2px rgba(255, 0, 0, 0.2);
     }
+  }
+
+  .mat-mdc-form-field-subscript-wrapper {
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden;
+  }
+}
+
+.title_input{
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+
+  .error {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    display: block;
   }
 }
 
@@ -57,12 +83,9 @@
   padding: 10px 16px;
   font-size: 1.2rem;
   font-weight: 500;
-  width: 100%;
-  max-width: 600px;
-  margin: 2% 0 3%;
 
   &.invalid {
-    border: 2px solid #cc3412;
+    border: 2px solid red;
   }
 }
 
@@ -151,9 +174,13 @@
   .mat-mdc-table{
     background-color: transparent;
   }
+  .mdc-data-table__cell{
+    text-overflow: unset;
+  }
 
   .mat-mdc-paginator{
     background-color: transparent;
+    margin-top: 2%;
   }
 
   .col_description {
@@ -225,7 +252,11 @@
  .note_map,
   .checklist_calculation {
     flex-direction: column;
-    margin-bottom: 10%;
+  }
+
+  .title_input{
+    margin-bottom: 3%;
+    width: 80%;
   }
 
   .note,
@@ -251,10 +282,6 @@
     flex-direction: column;
   }
 
-  .trip_title_input {
-    max-width: 80%;
-  }
-
   ::ng-deep .date_picker {
     width: 60%;
   }
@@ -274,6 +301,7 @@
     flex-direction: column;
     .date_picker {
       width: 100%;
+      margin-top: 4%;
     }
   }
 

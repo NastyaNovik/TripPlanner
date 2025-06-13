@@ -14,9 +14,10 @@ import {TripService} from '../../services/trip.service';
 })
 export class TripCardComponent {
   @Input() trip!: Trip;
-  seasonIcon = '';
-  readonly dialogMessage = 'Are you sure you want to delete this trip?';
   @Output() onDelete = new EventEmitter();
+
+  readonly dialogMessage = 'Are you sure you want to delete this trip?';
+  seasonIcon = '';
 
   constructor(
     private router: Router,

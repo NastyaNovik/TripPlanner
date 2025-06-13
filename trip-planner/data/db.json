@@ -405,6 +405,57 @@
         ]
       },
       "imageUrl": "https://images.unsplash.com/photo-1749542498351-1204fc30ce01?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTI5MzF8MHwxfHNlYXJjaHwxfHxuZXclMjB0cmlwfGVufDB8fDJ8fDE3NDk2MDQ1Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "22",
+      "dateFrom": "2025-06-28",
+      "dateTo": "2025-07-18",
+      "checkList": [
+        {
+          "task": "buy",
+          "completed": true
+        }
+      ],
+      "expenses": [
+        {
+          "description": "hotel",
+          "amount": 1000,
+          "currency": "USD"
+        }
+      ],
+      "note": "<p>some&nbsp;notes</p>",
+      "title": "China",
+      "map": {
+        "markers": [
+          {
+            "lat": 53.91909894504042,
+            "lng": 27.582658661334886
+          },
+          {
+            "lat": 36.07714826902675,
+            "lng": 104.01634379817797
+          }
+        ]
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1749718389831-d094c9636f23?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTI5MzF8MHwxfHNlYXJjaHwxfHxDaGluYXxlbnwwfHwyfHwxNzQ5ODIwNDU1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      "id": "23",
+      "dateFrom": "2025-06-28",
+      "dateTo": "2025-06-30",
+      "checkList": [],
+      "expenses": [],
+      "note": "<p>some&nbsp;notes</p>",
+      "title": "Japan",
+      "map": {
+        "markers": [
+          {
+            "lat": 53.919283735861306,
+            "lng": 27.582332406257407
+          }
+        ]
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1749775308391-00f7456fdb78?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTI5MzF8MHwxfHNlYXJjaHwxfHxKYXBhbnxlbnwwfHwyfHwxNzQ5ODIwNjY1fDA&ixlib=rb-4.1.0&q=80&w=1080"
     }
   ]
 }

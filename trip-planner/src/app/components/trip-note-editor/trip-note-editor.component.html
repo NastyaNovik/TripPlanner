@@ -3,143 +3,190 @@
     <div class="title_input">
       <input
         class="trip_title_input"
+        [placeholder]="TripLabel.Title"
         [(ngModel)]="trip.title"
-        (ngModelChange)="onContentChange()"
-        [class.invalid]="isTitleInvalid"
         required
-        [placeholder]="TripLabel.Title"/>
+        (ngModelChange)="onContentChange()"
+        [class.invalid]="isTitleInvalid" />
       <span *ngIf="isTitleInvalid" class="error">
         {{ TripLabel.TitleRequired }}
       </span>
     </div>
+
     <div class="date_pickers">
       <mat-form-field class="date_picker">
         <mat-label>{{ TripLabel.DateFrom }}</mat-label>
         <input
+          class="table_input"
           matInput
+          name="startDate"
           [(ngModel)]="trip.dateFrom"
           [matDatepicker]="startPicker"
-          (ngModelChange)="onDateChange()"
-          name="startDate"
-        />
+          (ngModelChange)="onDateChange()" />
         <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>
         <mat-datepicker #startPicker></mat-datepicker>
       </mat-form-field>
 
-      <mat-form-field class="date_picker" >
+      <mat-form-field class="date_picker">
         <mat-label>{{ TripLabel.DateTo }}</mat-label>
         <input
+          class="table_input"
           matInput
-          [min] = "trip.dateFrom"
+          name="endDate"
+          [min]="trip.dateFrom"
           [(ngModel)]="trip.dateTo"
-          [ngClass]="{ 'invalid': isDateRangeInvalid }"
           [matDatepicker]="endPicker"
           (ngModelChange)="onDateChange()"
-          name="endDate"
-        />
+          [ngClass]="{ 'invalid': isDateRangeInvalid }" />
         <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>
         <mat-datepicker #endPicker></mat-datepicker>
       </mat-form-field>
     </div>
   </div>
+
   <div class="note_map">
     <div class="note">
       <div class="note_title">{{ TripLabel.Notes }}</div>
       <quill-editor
+        [placeholder]="TripLabel.NotesPlaceholder"
         [(ngModel)]="trip.note"
-        (ngModelChange)="onContentChange()"
         [modules]="quillModules"
-        [placeholder]="TripLabel.NotesPlaceholder">
+        (ngModelChange)="onContentChange()">
       </quill-editor>
     </div>
+
     <div class="map">
       <google-map
-        height="100%"
-        width="100%"
+        class="google_map"
         [center]="center"
         [zoom]="zoom"
+        height="100%"
+        width="100%"
         (mapClick)="addMarker($event)"
         (mapInitialized)="onMapInitialized($event)">
-        <map-directions-renderer *ngIf="directionsResults" [directions]="directionsResults" [options]="directionsRenderOption" />
-        <map-marker *ngFor="let marker of markers; index as i" [position]="marker" (mapClick)="removeMarker(i)"  [label]="(i+1).toString()"></map-marker>
+        <map-directions-renderer
+          *ngIf="directionsResults"
+          [directions]="directionsResults"
+          [options]="directionsRenderOption">
+        </map-directions-renderer>
+
+        <map-marker
+          *ngFor="let marker of markers; index as i"
+          [position]="marker"
+          [label]="(i + 1).toString()"
+          (mapClick)="removeMarker(i)">
+        </map-marker>
       </google-map>
     </div>
   </div>
+
   <div class="checklist_calculation">
     <div class="checklist">
-      <div class="tasks"> {{ TripLabel.Tasks}}
+      <div class="tasks">
+        {{ TripLabel.Tasks }}
         <button mat-icon-button color="primary" (click)="addTask()">
           <mat-icon>add</mat-icon>
         </button>
       </div>
-      <div cdkDropList (cdkDropListDropped)="drop($event)" class="task_list">
+
+      <div class="task_list" cdkDropList (cdkDropListDropped)="drop($event)">
         <div class="task_item" *ngFor="let task of trip.checkList; index as i" cdkDrag>
-          <mat-checkbox [(ngModel)]="task.completed" (change)="onContentChange()" class="checkbox"></mat-checkbox>
+          <mat-checkbox
+            class="checkbox"
+            [(ngModel)]="task.completed"
+            (change)="onContentChange()">
+          </mat-checkbox>
+
           <input
+            class="table_input"
             matInput
+            [placeholder]="TripLabel.TaskPlaceholder"
             [(ngModel)]="task.task"
             [readonly]="task.completed"
-            (ngModelChange)="onContentChange()"
-            [placeholder] = "TripLabel.TaskPlaceholder"
-            class="table_input"/>
+            (ngModelChange)="onContentChange()" />
+
           <button mat-icon-button color="warn" (click)="removeTask(i)">
             <mat-icon>delete</mat-icon>
           </button>
         </div>
       </div>
     </div>
+
     <div class="calculation_table">
-      <div class="tasks">{{ TripLabel.Expenses}}
+      <div class="tasks">
+        {{ TripLabel.Expenses }}
         <button mat-icon-button color="primary" (click)="addExpense()">
           <mat-icon>add</mat-icon>
         </button>
       </div>
+
       <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef class="col_description"> {{ TripLabel.Expense}} </th>
-          <td mat-cell *matCellDef="let element" [formGroup]="element" class="col_description">
-            <input [formControl]="element.get('description')"
-              [placeholder] = "TripLabel.ExpensePlaceholder"
-              class="table_input description"/>
+          <th class="col_description" mat-header-cell *matHeaderCellDef>
+            {{ TripLabel.Expense }}
+          </th>
+          <td class="col_description" mat-cell *matCellDef="let element" [formGroup]="element">
+            <input
+              class="table_input description"
+              [formControl]="element.get('description')"
+              [placeholder]="TripLabel.ExpensePlaceholder" />
           </td>
-          <td mat-footer-cell *matFooterCellDef class="total_row">{{ TripLabel.TotalCost}} </td>
+          <td class="total_row" mat-footer-cell *matFooterCellDef>
+            {{ TripLabel.TotalCost }}
+          </td>
         </ng-container>
+
         <ng-container matColumnDef="amount">
-          <th mat-header-cell *matHeaderCellDef class="col_amount"> {{ TripLabel.Amount}} </th>
-          <td mat-cell *matCellDef="let element"  [formGroup]="element" class="col_amount">
-            <input [formControl]="element.get('amount')" type="number" class="table_input amount" />
+          <th class="col_amount" mat-header-cell *matHeaderCellDef>
+            {{ TripLabel.Amount }}
+          </th>
+          <td class="col_amount" mat-cell *matCellDef="let element" [formGroup]="element">
+            <input
+              class="table_input amount"
+              type="number"
+              [formControl]="element.get('amount')" />
           </td>
-          <td mat-footer-cell *matFooterCellDef class="total_row currency">
+          <td class="total_row currency" mat-footer-cell *matFooterCellDef>
             <span>{{ convertedTotal }}</span>
           </td>
         </ng-container>
+
         <ng-container matColumnDef="currency">
-          <th mat-header-cell *matHeaderCellDef class="col_currency"> {{ TripLabel.Currency}} </th>
-          <td mat-cell *matCellDef="let element" [formGroup]="element" class="col_currency">
-            <mat-select  [formControl]="element.get('currency')">
-              <mat-option *ngFor="let currency of currencies" [value]="currency">{{currency}}</mat-option>
+          <th class="col_currency" mat-header-cell *matHeaderCellDef>
+            {{ TripLabel.Currency }}
+          </th>
+          <td class="col_currency" mat-cell *matCellDef="let element" [formGroup]="element">
+            <mat-select [formControl]="element.get('currency')">
+              <mat-option *ngFor="let currency of currencies" [value]="currency">
+                {{ currency }}
+              </mat-option>
             </mat-select>
           </td>
-          <td mat-footer-cell *matFooterCellDef class="total_row currency">
+          <td class="total_row currency" mat-footer-cell *matFooterCellDef>
             <mat-select [(ngModel)]="selectedCurrency" (selectionChange)="calculateTotal()">
-            <mat-option *ngFor="let c of currencies" [value]="c">{{ c }}</mat-option>
+              <mat-option *ngFor="let c of currencies" [value]="c">
+                {{ c }}
+              </mat-option>
             </mat-select>
           </td>
         </ng-container>
+
         <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef class="col_delete"></th>
-          <td mat-cell *matCellDef="let element; index as i" class="col_delete">
+          <th class="col_delete" mat-header-cell *matHeaderCellDef></th>
+          <td class="col_delete" mat-cell *matCellDef="let element; index as i">
             <button mat-icon-button color="warn" (click)="removeExpense(i)">
               <mat-icon>delete</mat-icon>
             </button>
           </td>
-          <td mat-footer-cell *matFooterCellDef class="total_row"></td>
+          <td class="total_row" mat-footer-cell *matFooterCellDef></td>
         </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        <tr mat-footer-row *matFooterRowDef="displayedColumns" class="total_row"></tr>
+        <tr class="total_row" mat-footer-row *matFooterRowDef="displayedColumns"></tr>
       </table>
-      <mat-paginator [pageSizeOptions]= "[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
     </div>
   </div>
 </div>

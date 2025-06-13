@@ -12,7 +12,9 @@ export class NavbarComponent {
   isMenuOpen = false;
   Route = Route;
 
-  constructor(private router: Router) {
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.isMenuOpen = false;

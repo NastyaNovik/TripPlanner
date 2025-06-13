@@ -5,6 +5,8 @@ import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../shared/confirm-dialog/confirm-dialog.component';
 import {TripService} from '../../services/trip.service';
+import {filter, take} from 'rxjs';
+import {switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-trip-card',
@@ -50,16 +52,15 @@ export class TripCardComponent {
   }
 
   onDeleteTrip(): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    this.dialog.open(ConfirmDialogComponent, {
       data: this.dialogMessage,
       panelClass: 'custom_confirm_dialog',
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.tripService.deleteTrip(this.trip.id).subscribe(() => {
-          this.onDelete.emit(this.trip.id);
-        })
-      }
+    }).afterClosed().pipe(
+      take(1),
+      filter(result => !!result),
+      switchMap(() => this.tripService.deleteTrip(this.trip.id))
+    ).subscribe(() => {
+      this.onDelete.emit(this.trip.id);
     });
   }
 }

@@ -10,7 +10,7 @@ import { ImageSearchService } from './image-search.service';
   providedIn: 'root'
 })
 export class TripService {
-  private apiUrl = 'http://localhost:3000/trips';
+  private apiUrl = 'https://trips-3xec.onrender.com/trips';
   private readonly cacheTripKey = 'trips';
 
   constructor(private http: HttpClient, private imageSearch: ImageSearchService) { }

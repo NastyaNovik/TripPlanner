@@ -14,6 +14,7 @@ import {Expense} from '../../models/expense';
 import {MatPaginator} from '@angular/material/paginator';
 import {CurrencyService} from '../../services/currency.service';
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import {TripLabel} from '../../enums/trip-label.enum';
 
 @Component({
   selector: 'app-trip-note-editor',
@@ -22,6 +23,8 @@ import {FormArray, FormControl, FormGroup} from '@angular/forms';
   styleUrl: './trip-note-editor.component.scss'
 })
 export class TripNoteEditorComponent {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(GoogleMap) googleMap!: GoogleMap;
   trip!: Trip;
   saveSubject = new Subject<Trip>();
   saveSubscription!: Subscription;
@@ -40,8 +43,7 @@ export class TripNoteEditorComponent {
   formArray: FormArray<FormGroup> = new FormArray<FormGroup>([]);
   isTitleInvalid = false;
   isDateRangeInvalid = false;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(GoogleMap) googleMap!: GoogleMap;
+  TripLabel = TripLabel;
 
   constructor(
     private route: ActivatedRoute,

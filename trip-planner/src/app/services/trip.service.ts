@@ -73,7 +73,7 @@ export class TripService {
   private createTrip(trip: Trip): Observable<Trip> {
     const savedTrips = JSON.parse(localStorage.getItem(this.cacheTripKey) || '[]');
     const maxId = savedTrips.length
-      ? Math.max(...savedTrips.map((t: Trip) => t.id || 0))
+      ? Math.max(...savedTrips.map((savedTrip: Trip) => savedTrip.id || 0))
       : 0;
     trip.id = (maxId + 1).toString();
     const updatedTrips = [...savedTrips, trip];

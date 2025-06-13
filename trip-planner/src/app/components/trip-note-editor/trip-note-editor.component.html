@@ -7,14 +7,14 @@
         (ngModelChange)="onContentChange()"
         [class.invalid]="isTitleInvalid"
         required
-        placeholder="Title"/>
+        [placeholder]="TripLabel.Title"/>
       <span *ngIf="isTitleInvalid" class="error">
-        *Title is required
+        {{ TripLabel.TitleRequired }}
       </span>
     </div>
     <div class="date_pickers">
       <mat-form-field class="date_picker">
-        <mat-label>Date From</mat-label>
+        <mat-label>{{ TripLabel.DateFrom }}</mat-label>
         <input
           matInput
           [(ngModel)]="trip.dateFrom"
@@ -27,7 +27,7 @@
       </mat-form-field>
 
       <mat-form-field class="date_picker" >
-        <mat-label>Date To</mat-label>
+        <mat-label>{{ TripLabel.DateTo }}</mat-label>
         <input
           matInput
           [min] = "trip.dateFrom"
@@ -44,12 +44,12 @@
   </div>
   <div class="note_map">
     <div class="note">
-      <div class="note_title">Notes</div>
+      <div class="note_title">{{ TripLabel.Notes }}</div>
       <quill-editor
         [(ngModel)]="trip.note"
         (ngModelChange)="onContentChange()"
         [modules]="quillModules"
-        placeholder="Write down some notes on travel plans here...">
+        [placeholder]="TripLabel.NotesPlaceholder">
       </quill-editor>
     </div>
     <div class="map">
@@ -67,7 +67,7 @@
   </div>
   <div class="checklist_calculation">
     <div class="checklist">
-      <div class="tasks">Tasks
+      <div class="tasks"> {{ TripLabel.Tasks}}
         <button mat-icon-button color="primary" (click)="addTask()">
           <mat-icon>add</mat-icon>
         </button>
@@ -80,7 +80,7 @@
             [(ngModel)]="task.task"
             [readonly]="task.completed"
             (ngModelChange)="onContentChange()"
-            placeholder="Task..."
+            [placeholder] = "TripLabel.TaskPlaceholder"
             class="table_input"/>
           <button mat-icon-button color="warn" (click)="removeTask(i)">
             <mat-icon>delete</mat-icon>
@@ -89,23 +89,23 @@
       </div>
     </div>
     <div class="calculation_table">
-      <div class="tasks">Expenses
+      <div class="tasks">{{ TripLabel.Expenses}}
         <button mat-icon-button color="primary" (click)="addExpense()">
           <mat-icon>add</mat-icon>
         </button>
       </div>
       <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef class="col_description"> Expense </th>
+          <th mat-header-cell *matHeaderCellDef class="col_description"> {{ TripLabel.Expense}} </th>
           <td mat-cell *matCellDef="let element" [formGroup]="element" class="col_description">
             <input [formControl]="element.get('description')"
-              placeholder="Expense..."
+              [placeholder] = "TripLabel.ExpensePlaceholder"
               class="table_input description"/>
           </td>
-          <td mat-footer-cell *matFooterCellDef class="total_row">Total Cost: </td>
+          <td mat-footer-cell *matFooterCellDef class="total_row">{{ TripLabel.TotalCost}} </td>
         </ng-container>
         <ng-container matColumnDef="amount">
-          <th mat-header-cell *matHeaderCellDef class="col_amount"> Amount </th>
+          <th mat-header-cell *matHeaderCellDef class="col_amount"> {{ TripLabel.Amount}} </th>
           <td mat-cell *matCellDef="let element"  [formGroup]="element" class="col_amount">
             <input [formControl]="element.get('amount')" type="number" class="table_input amount" />
           </td>
@@ -114,7 +114,7 @@
           </td>
         </ng-container>
         <ng-container matColumnDef="currency">
-          <th mat-header-cell *matHeaderCellDef class="col_currency"> Currency </th>
+          <th mat-header-cell *matHeaderCellDef class="col_currency"> {{ TripLabel.Currency}} </th>
           <td mat-cell *matCellDef="let element" [formGroup]="element" class="col_currency">
             <mat-select  [formControl]="element.get('currency')">
               <mat-option *ngFor="let currency of currencies" [value]="currency">{{currency}}</mat-option>

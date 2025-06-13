@@ -2,8 +2,13 @@
   <div class="navbar_logo">
     <a routerLink="/">TRIP PLANNER</a>
   </div>
-  <ul class="navbar_links">
-    <li><a routerLink="/" routerLinkActive="active_link" [routerLinkActiveOptions]="{ exact: true }">TRIPS</a></li>
-    <li><a routerLink="/create" routerLinkActive="active_link">NOTE</a></li>
+  <button class="burger" (click)="isMenuOpen = !isMenuOpen">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <ul class="navbar_links" [class.open]="isMenuOpen">
+    <li><a [routerLink]="Route.Home" routerLinkActive="active_link" [routerLinkActiveOptions]="{ exact: true }">TRIPS</a></li>
+    <li><a [routerLink]="Route.Note" routerLinkActive="active_link">NOTE</a></li>
   </ul>
 </nav>

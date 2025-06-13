@@ -3,7 +3,6 @@ import {TripService} from '../../services/trip.service';
 import {Trip} from '../../models/trip';
 import {Season} from '../../enums/season.enum';
 import {SortLabel, SortOrder, SortOrderIcon} from '../../enums/sort-order.enum';
-import {TripSection} from '../../enums/trip-section.enum';
 
 @Component({
   selector: 'app-trip-notes-list',
@@ -25,7 +24,7 @@ export class TripNotesListComponent implements OnInit {
   sortOrder = SortOrder;
   sortOrderIcon = SortOrderIcon;
   sortLabel = SortLabel;
-  tripSection = TripSection;
+  currentTabIndex = 0;
 
   constructor(private tripService: TripService) {}
 
@@ -138,5 +137,36 @@ export class TripNotesListComponent implements OnInit {
     return this.pastSort === this.sortOrder.Asc
       ? this.sortOrderIcon.Asc
       : this.sortOrderIcon.Desc;
+  }
+
+  onTripDeleted(deletedId: string): void {
+    this.filteredUpcomingTrips = this.filteredUpcomingTrips.filter(trip => trip.id !== deletedId);
+    this.filteredPastTrips = this.filteredPastTrips.filter(trip => trip.id !== deletedId);
+    this.upcomingTrips = this.upcomingTrips.filter(trip => trip.id !== deletedId);
+    this.pastTrips = this.pastTrips.filter(trip => trip.id !== deletedId);
+  }
+
+  get currentSelectedSeason(): Season {
+    return this.currentTabIndex === 0 ? this.selectedUpcomingSeason : this.selectedPastSeason;
+  }
+
+  set currentSelectedSeason(value: Season) {
+    if (this.currentTabIndex === 0) {
+      this.selectedUpcomingSeason = value;
+    } else {
+      this.selectedPastSeason = value;
+    }
+  }
+
+  onTabChange(index: number): void {
+    this.currentTabIndex = index;
+  }
+
+  onSortClick(): void {
+    if (this.currentTabIndex === 0) {
+      this.upcomingSorting();
+    } else {
+      this.pastSorting();
+    }
   }
 }

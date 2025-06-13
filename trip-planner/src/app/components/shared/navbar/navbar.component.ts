@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
+import {Route} from '../../../enums/route.enum';
 
 @Component({
   selector: 'app-navbar',
@@ -9,6 +10,7 @@ import {NavigationEnd, Router} from '@angular/router';
 })
 export class NavbarComponent {
   isMenuOpen = false;
+  Route = Route;
 
   constructor(private router: Router) {
     this.router.events.subscribe(event => {

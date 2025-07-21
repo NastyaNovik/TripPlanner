@@ -10,6 +10,12 @@
   font-family: sans-serif;
   position: relative;
 
+  .right_side{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   .navbar_logo a {
     text-transform: uppercase;
     color: #888888;

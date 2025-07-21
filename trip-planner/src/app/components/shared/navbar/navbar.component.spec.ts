@@ -2,6 +2,7 @@ import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import { NavbarComponent } from './navbar.component';
 import {RouterModule} from '@angular/router';
+import {MatIconModule} from '@angular/material/icon';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -11,7 +12,8 @@ describe('NavbarComponent', () => {
     TestBed.configureTestingModule({
       declarations: [NavbarComponent],
       imports: [
-        RouterModule.forRoot([])
+        RouterModule.forRoot([]),
+        MatIconModule
       ],
     })
     .compileComponents();

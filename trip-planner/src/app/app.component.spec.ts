@@ -2,12 +2,14 @@ import {TestBed, waitForAsync} from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import {NavbarComponent} from './components/shared/navbar/navbar.component';
+import {MatIconModule} from '@angular/material/icon';
 
 describe('AppComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterModule.forRoot([])
+        RouterModule.forRoot([]),
+        MatIconModule
       ],
       declarations: [
         AppComponent,

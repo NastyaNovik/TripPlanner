@@ -15,7 +15,6 @@ describe('ConfirmDialogComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ConfirmDialogComponent],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} }
       ],

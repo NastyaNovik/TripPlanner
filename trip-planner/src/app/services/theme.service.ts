@@ -24,6 +24,6 @@ export class ThemeService {
   }
 
   toggleTheme() {
-    this.isDarkMode.update(v => !v);
+    this.isDarkMode.update(isDark => !isDark);
   }
 }

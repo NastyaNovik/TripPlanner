@@ -3,14 +3,20 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-body.light-theme {
+html.light-theme {
   --bg-color: #fff;
   --border-color: #e0e0e0;
   --tab-color: #f8f9fa;
+  --logo-color: #888888;
+
+  background-color: white;
 }
 
-body.dark-theme {
-  --bg-color: #422725;
+html.dark-theme {
+  --bg-color: #343745;
   --border-color: #241514;
-  --tab-color: #736362;
+  --tab-color: #7a7f99;
+  --logo-color: white;
+
+  background-color: #1f2129;
 }

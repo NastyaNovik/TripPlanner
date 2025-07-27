@@ -12,7 +12,7 @@ export class ThemeService {
 
   constructor() {
     effect(() => {
-      const classList = document.body.classList;
+      const classList = document.documentElement.classList;
       if (this.isDarkMode()) {
         classList.add('dark-theme');
         classList.remove('light-theme');

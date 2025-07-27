@@ -9,10 +9,17 @@
   justify-content: space-between;
   font-family: sans-serif;
   position: relative;
+  background-color: var(--tab-color);
+
+  .right_side{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
   .navbar_logo a {
     text-transform: uppercase;
-    color: #888888;
+    color: var(--logo-color);
     text-decoration: none;
     font-weight: bold;
     font-size: 18px;

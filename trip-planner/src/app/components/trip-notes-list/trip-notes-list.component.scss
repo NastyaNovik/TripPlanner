@@ -4,6 +4,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: var(--bg-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .section_header {
@@ -78,11 +80,11 @@
   width: 90%;
   margin: 1% auto;
   padding: 0.8% 1.5% 3%;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--border-color);
   border-radius: 16px;
 
   ::ng-deep .mat-mdc-tab {
-    background-color: #f8f9fa;
+    background-color: var(--tab-color);
     border-radius: 12px 12px 0 0;
   }
 
@@ -93,7 +95,7 @@
   ::ng-deep.mdc-tab__text-label{
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #888888;
+    color: var(--logo-color);
     font-size: 18px;
   }
 

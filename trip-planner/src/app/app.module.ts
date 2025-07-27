@@ -14,7 +14,6 @@ import { MatButton, MatFabButton, MatIconButton } from '@angular/material/button
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
-import { ConfirmDialogComponent } from './components/shared/confirm-dialog/confirm-dialog.component';
 import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -42,8 +41,7 @@ import {MatSelect} from '@angular/material/select';
     TripNotesListComponent,
     TripNoteEditorComponent,
     NavbarComponent,
-    TripCardComponent,
-    ConfirmDialogComponent
+    TripCardComponent
   ],
   imports: [
     BrowserModule,
